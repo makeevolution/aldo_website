@@ -24,10 +24,14 @@ def project_pictures_fullsize(filename):
 def project_pictures_thumbnails(filename):
     return send_from_directory("assets/img/portfolio/thumbnails",filename)
 
+#For Favicon
 @app.route('/templates/<path:filename>')
 def pictures(filename):
     return send_from_directory("templates",filename)
 
+@app.route('/raspi_camera_project')
+def raspi_camera_project():
+    return render_template("raspi_camera_project.html")
 
 @app.route('/scara_project')
 def scara():

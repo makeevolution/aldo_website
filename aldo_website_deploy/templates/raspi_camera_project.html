@@ -1,0 +1,25 @@
+{%extends "layout.html" %} {% block content %}
+<section class="page-section" style="background-color:lightblue" id="about">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-8 text-center">
+				<h2 class="text-black-50 mt-0">Home Camera Security using Raspberry Pi</h2>
+				<h5 class="text-black-50 mt-0 font-italic">
+                    Concepts used: Image Processing, Internet of Things (IoT)
+                </h5>
+				<h5 class="text-black-50 mt-0 font-italic">Applications used: Python, IFTTT, SMTP Mail Server, OpenCV, Raspberry Pi, Flask</h5>
+				<hr class="divider light my-4" />
+				<p class="text-black-50 mb-4"> Here a Google Home is integrated to work with a camera-equipped Raspberry Pi.
+                    When leaving the house and saying "turn on camera" to Google Home, camera will be turned on.
+                    When the camera detects motion, the camera will capture
+                    a picture and send it to a client email, notifying me that someone is in the house.
+                    Motion is detected using frame difference technique, with the reference frame being
+                    updated every 5 seconds (determined by trial and error) to ensure robustness of the system.
+                    Upon arrival at home, simply say "turn off camera" to turn off the camera. An implementation
+                    is shown in the video below:
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/BrRUp1mqfdY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </p>
+            </div>
+		</div>
+	</div>
+</section> {% endblock %}
