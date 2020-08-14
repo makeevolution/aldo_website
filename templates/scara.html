@@ -1,0 +1,93 @@
+{%extends "layout.html" %} {% block content %}
+<section class="page-section" style="background-color:lightblue" id="about">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-8 text-center">
+				<h2 class="text-black-50 mt-0">SCARA control</h2>
+				<h5 class="text-black-50 mt-0 font-italic">
+                    Concepts used: Feedback and Feedforward control,
+                    flexible beam modelling
+                </h5>
+				<h5 class="text-black-50 mt-0 font-italic">Software used: MATLAB, Simulink, SimScape Multibody</h5>
+				<hr class="divider light my-4" />
+				<p class="text-black-50 mb-4"> This project concerns the control of a model of industrial robot called SCARA (Selective Compliance Articulated Robot Arm) using Simulink and SimScape. The robot has two degrees of freedom in XY plane and high stiffness in Z plane. </p>
+				<figure> <img src="templates/SCARA.PNG" alt="Italian Trulli">
+					<figcaption>Fig.1 - Illustration of a SCARA</figcaption>
+				</figure>
+				<p class="text-black-50 mb-4"> The requirements for the robot are as shown: </p>
+			</div>
+			<ul class="text-black-50 mb-4">
+				<li>The model of the SCARA robot is simplified as a two-arm robot with prismatic joints at shoulder A and elbow B, and a point mass load at C.</li>
+				<li>There are also DC motors at A and B with zero friction assumed.</li>
+				<li>The joints are also modelled with their own mass and inertia.</li>
+				<li>The beams/links are modelled taking into account their flexibility; this uses a lumped parameter approach where the flexible body is modeled as a chain of rigid body-spring-dampers.</li>
+				<li>Stiffness and damping is calculated using beam theory as a function of cross-section of the beam and beam material.</li>
+				<li>The second beam is required to be 5x longer compared to the first beam in order to be more versatile. The exact dimensions and material are not quoted here for brevity.</li>
+				<li>The base and the shoulder joints are also not properly secured to the ground. </li>
+			</ul>
+			<p class="text-black-50 mb-4"> These requirements makes for a more realistic albeit challenging model. </p>
+            <div class="col-lg-8 text-center text-black-50 mb-4">
+                <figure> <img width="300" src="templates/no_countermass.PNG" alt="Italian Trulli">
+                    <figcaption>Fig.2 - Preliminary model</figcaption>
+                </figure>
+                Any torque applied will cause a reaction force and cause the base and shoulder joints to displace. Therefore a balancing mass is applied at the other end of each beam.
+                <figure> <img width="300" src="templates/with_countermass2.PNG" alt="Italian Trulli">
+                    <figcaption>Fig.3 - Modified model</figcaption>
+                </figure>
+                The model is built in Simulink and SimScape and shown below.
+				<figure>
+					<div class="iframe-container">
+						<iframe width="560" height="315" src="templates/simulink-all-cropped.pdf" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" scrolling=“no”></iframe>
+					</div>
+					<figcaption>Fig.4 - Full Model</figcaption>
+				</figure>
+				<figure>
+					<div class="iframe-container">
+ 						<iframe width="560" height="315" src="templates/simulink-arm-cropped.pdf" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" scrolling=“no”></iframe>
+					</div>
+					<figcaption>Fig.5 - Arm Model</figcaption>
+				</figure>
+				The design process were as follows:
+            </div>
+			<ul class="text-black-50 mb-4">
+				<li>The end effector is then required to move to certain points in the plane within a time limit. Using inverse kinematics,
+                these are then translated to required angular displacements for each arm. </li>
+				<li>Armed with this knowledge, the feedforward part of the controller is calculated to actuate each arm.</li>
+				<li>PID controllers are also
+                added to remove steady state error, with the D part especially tuned to be more agressive so that the
+                mechanism is more reactive to sudden changes in setpoint.</li>
+				<li>Notch filters are also applied to reduce mid-frequency resonances
+                that are excited when the final setpoint is reached.</li>
+			</ul>
+			<div class="col-lg-8 text-center text-black-50 mb-4" >
+				<p align="justify">The final motion is as shown below, moving the payload from starting point (5.5,-1) to setpoints (5.8,-1.5), (6,0.5) and (5.5,2.5) in the x-y plane.
+				The long arm is especially wobbly and it was a challenge to tune the PID so that the system stays stable while
+				minimizing the RMS error between the prescribed and actual path. However it finally worked in the end.
+				</p>
+				<br></br>
+				<figure>
+					<iframe width="300" height="315" src="https://www.youtube.com/embed/3c2GAQG3ESQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+					<figcaption>Simulation of SCARA</figcaption>
+				</figure>
+			</div>
+			<figure>
+					<picture>
+						<img
+						sizes="(max-width: 1400px) 100vw, 1400px"
+						srcset="
+						templates/payload_position_hr9ngi_c_scale,w_200.jpg 200w,
+						templates/payload_position_hr9ngi_c_scale,w_653.jpg 653w,
+						templates/payload_position_hr9ngi_c_scale,w_1006.jpg 1006w,
+						templates/payload_position_hr9ngi_c_scale,w_1286.jpg 1286w,
+						templates/payload_position_hr9ngi_c_scale,w_1400.jpg 1400w"
+						src="templates/payload_position_hr9ngi_c_scale,w_1400.jpg"
+						alt="">
+					</picture>
+					<figcaption class="text-black-50 mb-4">Fig.6: Position of end effector of simulation video above</figcaption>
+				</figure>
+
+
+
+		</div>
+	</div>
+</section> {% endblock %}
