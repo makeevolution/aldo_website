@@ -1,0 +1,40 @@
+{%extends "layout.html" %} {% block content %}
+<section class="page-section" style="background-color:lightblue" id="about">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-8 text-center">
+                <h2 class="text-black-50 mt-0">Trivia API</h2>
+				<h5 class="text-black-50 mt-0 font-italic">
+                    Concepts used: API scraping
+                </h5>
+				<h5 class="text-black-50 mt-0 font-italic">Applications used: Python, Flask, jQuery, HTML</h5>
+				<hr class="divider light my-4" />
+				<p class="text-black-50 mb-4"> This small side project is done for the purpose of understanding API scraping.
+                    The questions and possible answers are taken from a Trivia API provider. For each button click, data
+                    is taken from the API, transformed into JSON format and jQuery is used to randomise the position
+                    of the correct answer everytime a new question is loaded. Any suggestions on how to improve this small widget
+                    is appreciated.
+                </p>
+                <div class="content-section">
+                <h3>Random Trivia!</h3>
+                    <div class="custom-control custom-radio">
+                      <label style="display:block;" class="custom-control-label" for="customRadio1">(Re)press button for new question</label>
+                        <input style="text-align: center; display:inline-block;" type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                          <p id="questiontest"></p>
+
+                          <div class="answer" style="display:none">
+                          <br><a id="answer1" href="#"></a></br>
+                          <br><a id="answer2" href="#"></a></br>
+                          <br><a id="answer3" href="#"></a></br>
+                          <br><a id="answer4" href="#"></a></br>
+                          </div>
+                        <br></br>
+                          <p id="trueorfalse"></p>
+
+                    </div>
+
+              </div>
+            </div>
+		</div>
+	</div>
+</section> {% endblock %}

@@ -37,5 +37,16 @@ def raspi_camera_project():
 def scara():
     return render_template("scara.html")
 
+@app.route("/getquestion")
+def getquestion():
+
+    response=requests.get("https://opentdb.com/api.php?amount=1&category=30")
+
+    return response.json()["results"]["question"]
+
+@app.route('/Trivia_API')
+def Trivia_API():
+    return render_template("Trivia_API.html")
+
 if __name__ == '__main__':
     app.run(debug=True)

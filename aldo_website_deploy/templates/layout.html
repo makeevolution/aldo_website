@@ -17,6 +17,82 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet" />
+        <!-- jquery for trivia! -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+        <script type="text/javascript">
+              // <!-- https://stackoverflow.com/questions/5836833/create-an-array-with-random-values -->
+              function shuffle(array) {
+                var tmp, current, top = array.length;
+
+                if(top) while(--top) {
+                    current = Math.floor(Math.random() * (top + 1));
+                    tmp = array[current];
+                    array[current] = array[top];
+                    array[top] = tmp;
+                }
+
+                return array;
+            }
+              $(document).ready(function(){
+                $('#customRadio1').click(function() {
+                     $.ajax({
+                       url: "https://opentdb.com/api.php?amount=1&category=28&type=multiple",
+                     }).done(function(data) {
+                       for (var randomise=[],i=0;i<4;++i) randomise[i]=i;
+                       console.log(shuffle(randomise));
+                       console.log(data);
+                       $('#questiontest').html(data["results"][0]["question"]).text();
+                       answers=[data["results"][0]["correct_answer"],
+                                    data["results"][0]["incorrect_answers"][0],
+                                    data["results"][0]["incorrect_answers"][1],
+                                    data["results"][0]["incorrect_answers"][2]]
+                       ans1=$('#answer1').html(answers[randomise[0]]).text()
+                       ans2=$('#answer2').html(answers[randomise[1]]).text()
+                       ans3=$('#answer3').html(answers[randomise[2]]).text()
+                       ans4=$('#answer4').html(answers[randomise[3]]).text()
+                       if ($('.answer').is(":hidden")){
+                          $('.answer').toggle();
+                        }
+                     });
+                     $("#trueorfalse").empty();
+                  });
+                  $( "#answer1" ).click(function() {
+                    if (ans1==answers[0]) {
+                        $('#trueorfalse').text("Correct!");
+                  }
+                    else{
+                      $('#trueorfalse').text("Nope");
+                    }
+                  });
+                  $( "#answer2" ).click(function() {
+                    if (ans2==answers[0]) {
+                        $('#trueorfalse').text("Correct!");
+                  }
+                    else{
+                      $('#trueorfalse').text("Nope");
+                    }
+                  });
+                  $( "#answer3" ).click(function() {
+                    if (ans3==answers[0]) {
+                        $('#trueorfalse').text("Correct!");
+                  }
+                    else{
+                      $('#trueorfalse').text("Nope");
+                    }
+                  });
+                  $( "#answer4" ).click(function() {
+                    if (ans4==answers[0]) {
+                        $('#trueorfalse').text("Correct!");
+                  }
+                    else{
+                      $('#trueorfalse').text("Nope");
+                    }
+                  });
+              });
+        </script>
+
     </head>
     <body id="page-top">
         <!-- Navigation-->
