@@ -11,6 +11,7 @@ def home():
 @app.route('/print')
 def print():
     return render_template('print.html')
+#For Favicon
 
 @app.route('/assets/img/<path:filename>')
 def favicon(filename):
@@ -24,7 +25,6 @@ def project_pictures_fullsize(filename):
 def project_pictures_thumbnails(filename):
     return send_from_directory("assets/img/portfolio/thumbnails",filename)
 
-#For Favicon
 @app.route('/templates/<path:filename>')
 def pictures(filename):
     return send_from_directory("templates",filename)
@@ -51,5 +51,10 @@ def Trivia_API():
 @app.route('/waver_stepper_control')
 def waver_stepper_control():
     return render_template("waver_stepper_control.html")
+
+@app.route('/exit_survey')
+def exit_survey():
+    return render_template("exit_survey.html")
+
 if __name__ == '__main__':
     app.run(debug=True)

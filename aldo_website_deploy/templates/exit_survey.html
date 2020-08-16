@@ -1,0 +1,32 @@
+{%extends "layout.html" %} {% block content %}
+<section class="page-section" style="background-color:lightblue" id="about">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-8 text-center">
+				<h2 class="text-black-50 mt-0">Analyzing Exit Survey of Australian Workers</h2>
+				<h5 class="text-black-50 mt-0 font-italic">
+                    Concepts used: Data Cleaning and Analysis
+                </h5>
+				<h5 class="text-black-50 mt-0 font-italic">Applications used: Python, Pandas, Jupyter Notebook</h5>
+				<p>
+					During the pandemic lockdown I took an online course on data analysis for the purpose of
+					expanding my skill set. I applied this knowledge by analyzing exit survey data of
+					workers that work for employment and education institutes of the Australian Government.
+					This course gave me new insights on how to filter a given dataset in order to extract only
+					information of interest. In addition, it teaches me on how to handle missing data when applying
+					statistical analysis to an incomplete dataset.
+					Below is a preliminary report that shows the code and findings. I intend to expand this analysis in the near future.
+				</p>
+            </div>
+		</div>
+	</div>
+	<style>.vertical-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+	}</style>
+	<div class='vertical-center'>
+		<iframe width="560" height="315" src="templates/data_science.pdf" allow="accelerometer; autoplay; gyroscope; picture-in-picture" scrolling=“yes”></iframe>
+	</div>
+</section> {% endblock %}
