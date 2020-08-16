@@ -48,5 +48,8 @@ def getquestion():
 def Trivia_API():
     return render_template("Trivia_API.html")
 
+@app.route('/waver_stepper_control')
+def waver_stepper_control():
+    return render_template("waver_stepper_control.html")
 if __name__ == '__main__':
     app.run(debug=True)
