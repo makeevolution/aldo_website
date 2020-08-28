@@ -2,7 +2,7 @@ from flask import Flask, render_template, send_from_directory
 import requests
 
 app = Flask(__name__)
-
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 1
 
 @app.route("/")
 def home():
@@ -55,6 +55,10 @@ def waver_stepper_control():
 @app.route('/exit_survey')
 def exit_survey():
     return render_template("exit_survey.html")
+
+@app.route('/spectrogram')
+def spectrogram():
+    return render_template("spectrogram.html")
 
 if __name__ == '__main__':
     app.run(debug=True)
