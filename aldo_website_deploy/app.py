@@ -1,8 +1,45 @@
-from flask import Flask, render_template, send_from_directory
+from flask import request, Flask, render_template, send_from_directory
+from flask_sqlalchemy import SQLAlchemy
 import requests
+import json
+import jsonpickle
 
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 1
+app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///site.db'
+
+#Create database instance for dutch learning
+db = SQLAlchemy(app)
+class Tests(db.Model):
+    id=db.Column(db.Integer, primary_key=True)
+    question=db.Column(db.String(200),unique=True)
+    answer = db.Column(db.String(200), unique=False)
+
+    def __repr__(self):#Redefine what print(object) is
+        return '{} {}'.format(self.question,self.answer)
+# To create a database instance:
+    #1. Go to terminal to aldo_webstie_deploy dir and fire up python
+    #2. type from app import db
+    #3. type db.create_all()
+    #4. type from app import Tests
+    #5. type test_1=Tests(question='',answer='')
+    #6. type db.session.add(test_1)
+    #7. type db.session.commit()
+
+@app.route('/dutch_training',methods=['GET','POST'])
+def dutch_training():
+    data=Tests.query.all()
+    if request.method=='POST':
+        name=request.form['name']
+        return f'<h1> {name} </h1>'
+    else:
+        return render_template("dutch_training.html",data=data)
+
+@app.route('/get_data',methods=['GET','POST'])
+def get_data():
+    data=Tests.query.all()
+    #Here I use jsonpickle custom library in order to parse Tests class object into JSON form
+    return jsonpickle.encode(data)
 
 @app.route("/")
 def home():
