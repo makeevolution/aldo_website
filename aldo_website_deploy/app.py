@@ -9,14 +9,14 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 1
 app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///site.db'
 
 #Create database instance for dutch learning
-db = SQLAlchemy(app)
-class Tests(db.Model):
-    id=db.Column(db.Integer, primary_key=True)
-    question=db.Column(db.String(200),unique=True)
-    answer = db.Column(db.String(200), unique=False)
-
-    def __repr__(self):#Redefine what print(object) is
-        return '{} {}'.format(self.question,self.answer)
+# db = SQLAlchemy(app)
+# class Tests(db.Model):
+#     id=db.Column(db.Integer, primary_key=True)
+#     question=db.Column(db.String(200),unique=True)
+#     answer = db.Column(db.String(200), unique=False)
+#
+#     def __repr__(self):#Redefine what print(object) is
+#         return '{} {}'.format(self.question,self.answer)
 # To create a database instance:
     #1. Go to terminal to aldo_webstie_deploy dir and fire up python
     #2. type from app import db
