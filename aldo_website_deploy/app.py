@@ -1,8 +1,8 @@
 from flask import request, Flask, render_template, send_from_directory
-from flask_sqlalchemy import SQLAlchemy
+#from flask_sqlalchemy import SQLAlchemy
 import requests
 import json
-import jsonpickle
+#import jsonpickle
 
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 1
