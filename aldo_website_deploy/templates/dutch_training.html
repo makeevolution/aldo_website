@@ -1,25 +1,31 @@
 {%extends "layout.html" %} {% block content %}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script type="text/javascript">
   $(document).ready(function(){
-	$('#customRadio2').click(function() {
 		var i=0;
 		$.ajax({
-			url: "http://localhost:5000/get_data",
+			//url: "http://localhost:5000/get_data",
+			url: "http://aldosebastian.pythonanywhere.com/get_data"
 		}).done(function(data) {
 			data_parsed=jQuery.parseJSON(data);
+			//$("#test_ajax").html('<p>Test</p>').text();
 			data_parsed.forEach(function(dt){
-				$("pquestions").append("<p>"+ dt['question'] +
+				$("#all_questions").append("<p>"+ dt['id'] +". " + dt['question'] + " " +
 										"<input id=\""+"question"+i+"\">" + "</input>" +
 										"<button type=\""+"button"+"\" id=\""+i+"\">" +
 										"</p>");
+				// $("#all_questions").append(
+				// 						"<input id=\""+"question"+i+"\">" + "</input>" +
+				// 						"<button type=\""+"button"+"\" id=\""+i+"\">"
+				// 						);
+				//$("#all_questions").html('<p>Test</p>').text();
 				i++;
 				//console.log(dt['question']);
 			});
 			//$('#questiontests').html(jQuery.parseJSON(data)['0']["question"]).text();
 			//console.log(jQuery.parseJSON(data).length);
 		});
-	});
   });
 </script>
 
@@ -28,14 +34,23 @@
 		var x = document.getElementById("question"+this.id).value;
 		var current_id=this.id
 		$.ajax({
-			url: "http://localhost:5000/get_data",
+			//url: "http://localhost:5000/get_data",
+			url: "http://aldosebastian.pythonanywhere.com/get_data"
 		}).done(function(data) {
 			data_parsed=jQuery.parseJSON(data)
 			console.log(data_parsed[current_id]["answer"])
 			if (x==data_parsed[current_id]["answer"]){
-				alert("Correct!");
+				sweetAlert(
+					{
+					title: "Juist!",
+					icon: "success"
+					})
 			} else {
-				alert("failed");
+				sweetAlert({
+					title: "Ontjuist!",
+					icon: "warning",
+					text: "Uw response is " + x + " maar het antwoord is " + data_parsed[current_id]["answer"],
+					})
 			}
 			console.log("button click");
 		});
@@ -46,23 +61,31 @@
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-lg-8 text-center">
-				<h2 class="text-black-50 mt-0">Analyzing Exit Survey of Australian Workers</h2>
+				<h2 class="text-black-50 mt-0">Dutch oefening</h2>
 				<h5 class="text-black-50 mt-0 font-italic">
-                    Concepts used: Data Cleaning and Analysis
+					Hier kun je je eigen oefening toevoegen, geen duplicaten mogelijk:
+				</h5>
+				<form action="http://aldosebastian.pythonanywhere.com/add_question" method="post">
+				  <label for="fname">Vraag:</label>
+				  <input type="text" id="fname" name="fname">
+				  <label for="lname">Antwoord:</label>
+				  <input type="text" id="lname" name="lname">
+				  <input type="submit" value="onslaan">
+				</form>
+				<h5 class="text-black-50 mt-0 font-italic">
+					Hier kun je een rij verwijderen:
+				</h5>
+				<form action="http://aldosebastian.pythonanywhere.com/delete" method="post">
+				  <label for="deletes">Rij om te verwijderen:</label>
+				  <input type="text" id="deletes" name="deletes">
+				  <input type="submit" value="verwijder">
+				</form>
+				<h5 class="text-black-50 mt-0 font-italic">
+                    Schrijf de vertaling van elke zin, en druk op de knop om te controleren
                 </h5>
-				<h5 class="text-black-50 mt-0 font-italic">Applications used: Python, Pandas, Jupyter Notebook</h5>
-				<p>
-				Question1: <input type="input" size="20">
-				</p>
-			   <div class="custom-control custom-radio">
-                      <label style="display:block;" class="custom-control-label" for="customRadio2">(Re)press button for new question</label>
-                        <input style="text-align: center; display:inline-block;" type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
-                          <p id="#section 1"></p>
+				<div class="inner" id="all_questions">
 				</div>
-				<div class="col-lg-8 text-center">
-					<pquestions id="#all_questions">
-
-					</pquestions>
+				<div class="inner" id="test_ajax">
 				</div>
 			</div>
 		</div>
