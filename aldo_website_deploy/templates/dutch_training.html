@@ -6,7 +6,7 @@
 		var i=0;
 		$.ajax({
 			//url: "http://localhost:5000/get_data",
-			url: "http://aldosebastian.pythonanywhere.com/get_data"
+			url: "https://aldosebastian.pythonanywhere.com/get_data"
 		}).done(function(data) {
 			data_parsed=jQuery.parseJSON(data);
 			//$("#test_ajax").html('<p>Test</p>').text();
@@ -35,7 +35,7 @@
 		var current_id=this.id
 		$.ajax({
 			//url: "http://localhost:5000/get_data",
-			url: "http://aldosebastian.pythonanywhere.com/get_data"
+			url: "https://aldosebastian.pythonanywhere.com/get_data"
 		}).done(function(data) {
 			data_parsed=jQuery.parseJSON(data)
 			console.log(data_parsed[current_id]["answer"])
@@ -65,7 +65,7 @@
 				<h5 class="text-black-50 mt-0 font-italic">
 					Hier kun je je eigen oefening toevoegen, geen duplicaten mogelijk:
 				</h5>
-				<form action="http://aldosebastian.pythonanywhere.com/add_question" method="post">
+				<form action="https://aldosebastian.pythonanywhere.com/add_question" method="post">
 				  <label for="fname">Vraag:</label>
 				  <input type="text" id="fname" name="fname">
 				  <label for="lname">Antwoord:</label>
@@ -75,7 +75,7 @@
 				<h5 class="text-black-50 mt-0 font-italic">
 					Hier kun je een rij verwijderen:
 				</h5>
-				<form action="http://aldosebastian.pythonanywhere.com/delete" method="post">
+				<form action="https://aldosebastian.pythonanywhere.com/delete" method="post">
 				  <label for="deletes">Rij om te verwijderen:</label>
 				  <input type="text" id="deletes" name="deletes">
 				  <input type="submit" value="verwijder">
