@@ -5,16 +5,18 @@
   $(document).ready(function(){
 		var i=0;
 		$.ajax({
-			//url: "http://localhost:5000/get_data",
-			url: "https://aldosebastian.pythonanywhere.com/get_data"
+			url: "http://localhost:5000/get_data",
+			//url: "https://aldosebastian.pythonanywhere.com/get_data"
 		}).done(function(data) {
 			data_parsed=jQuery.parseJSON(data);
 			//$("#test_ajax").html('<p>Test</p>').text();
 			data_parsed.forEach(function(dt){
+				var link_to_example="https://context.reverso.net/vertaling/nederlands-engels/"+ dt['question'];
 				$("#all_questions").append("<p>"+ dt['id'] +". " + dt['question'] + " " +
 										"<input id=\""+"question"+i+"\">" + "</input>" +
-										"<button type=\""+"button"+"\" id=\""+i+"\">" +
-										"</p>");
+										"<button  style=\""+"height:20px;width:20px"+"\" type=\""+"radio"+"\" id=\""+i+"\">" + "</button>" +
+										'<a href="' + link_to_example + '">'+'Gebruik voorbeeld'+'</a>'+"</p>");
+				//$("#all_questions").append('<a href="' + link_to_example + '">Gebruik voorbeeld</a>');
 				// $("#all_questions").append(
 				// 						"<input id=\""+"question"+i+"\">" + "</input>" +
 				// 						"<button type=\""+"button"+"\" id=\""+i+"\">"
@@ -34,8 +36,8 @@
 		var x = document.getElementById("question"+this.id).value;
 		var current_id=this.id
 		$.ajax({
-			//url: "http://localhost:5000/get_data",
-			url: "https://aldosebastian.pythonanywhere.com/get_data"
+			url: "http://localhost:5000/get_data",
+			//url: "https://aldosebastian.pythonanywhere.com/get_data"
 		}).done(function(data) {
 			data_parsed=jQuery.parseJSON(data)
 			console.log(data_parsed[current_id]["answer"])
@@ -70,7 +72,7 @@
 				  <input type="text" id="fname" name="fname">
 				  <label for="lname">Antwoord:</label>
 				  <input type="text" id="lname" name="lname">
-				  <input type="submit" value="onslaan">
+				  <input type="submit" value="opslaan">
 				</form>
 				<h5 class="text-black-50 mt-0 font-italic">
 					Hier kun je een rij verwijderen:
