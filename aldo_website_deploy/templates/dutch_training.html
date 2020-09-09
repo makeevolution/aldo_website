@@ -5,8 +5,8 @@
   $(document).ready(function(){
 		var i=0;
 		$.ajax({
-			url: "http://localhost:5000/get_data",
-			//url: "https://aldosebastian.pythonanywhere.com/get_data"
+			//url: "http://localhost:5000/get_data",
+			url: "https://aldosebastian.pythonanywhere.com/get_data"
 		}).done(function(data) {
 			data_parsed=jQuery.parseJSON(data);
 			//$("#test_ajax").html('<p>Test</p>').text();
@@ -36,8 +36,8 @@
 		var x = document.getElementById("question"+this.id).value;
 		var current_id=this.id
 		$.ajax({
-			url: "http://localhost:5000/get_data",
-			//url: "https://aldosebastian.pythonanywhere.com/get_data"
+			//url: "http://localhost:5000/get_data",
+			url: "https://aldosebastian.pythonanywhere.com/get_data"
 		}).done(function(data) {
 			data_parsed=jQuery.parseJSON(data)
 			console.log(data_parsed[current_id]["answer"])
