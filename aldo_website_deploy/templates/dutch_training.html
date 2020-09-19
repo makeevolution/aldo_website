@@ -13,7 +13,7 @@
 			data_parsed.forEach(function(dt){
 				var link_to_example="https://context.reverso.net/vertaling/nederlands-engels/"+ dt['question'];
 				//var link_to_hint = "http://localhost:5000/hint"+ dt['question']
-				var link_to_hint = "https://aldosebastian.pythonanywhere.com/hint" + dt['question']
+				var link_to_hint = "https://aldosebastian.pythonanywhere.com/hint/" + dt['question']
 				$("#all_questions").append("<p>"+ dt['id'] +". " + dt['question'] + " " +
 										"<input id=\""+"question"+i+"\">" + "</input>" +
 										"<button  style=\""+"height:20px;width:20px"+"\" type=\""+"radio"+"\" id=\""+i+"\">" + "</button>" +
