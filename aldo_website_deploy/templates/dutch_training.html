@@ -6,14 +6,14 @@
 		var i=0;
 		$.ajax({
 			//url: "http://localhost:5000/get_data/Tests",
-			url: "https://aldosebastian.pythonanywhere.com/get_data"
+			url: "https://aldosebastian.pythonanywhere.com/get_data/Tests"
 		}).done(function(data) {
 			data_parsed=jQuery.parseJSON(data);
 			//$("#test_ajax").html('<p>Test</p>').text();
 			data_parsed.forEach(function(dt){
 				var link_to_example="https://context.reverso.net/vertaling/nederlands-engels/"+ dt['question'];
 				//var link_to_hint = "http://localhost:5000/hint"+ dt['question']
-				var link_to_hint = ""https://aldosebastian.pythonanywhere.com/hint + dt['question']"
+				var link_to_hint = "https://aldosebastian.pythonanywhere.com/hint" + dt['question']
 				$("#all_questions").append("<p>"+ dt['id'] +". " + dt['question'] + " " +
 										"<input id=\""+"question"+i+"\">" + "</input>" +
 										"<button  style=\""+"height:20px;width:20px"+"\" type=\""+"radio"+"\" id=\""+i+"\">" + "</button>" +

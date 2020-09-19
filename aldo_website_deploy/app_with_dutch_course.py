@@ -83,6 +83,7 @@ def dutch_training():
 @app.route('/dutch_training<name>',methods=['GET','POST'])
 def dutch_training_les(name=None):
     data=eval(name).query.all()
+    app.logger.info('success_into_new_les_Routes')
     return render_template("dutch_training"+name+".html",data=data)
 
 @app.route('/get_data/<name>',methods=['GET','POST'])
