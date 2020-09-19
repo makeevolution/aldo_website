@@ -86,6 +86,12 @@ def dutch_training_les(name=None):
     app.logger.info('success_into_new_les_Routes')
     return render_template("dutch_training"+name+".html",data=data)
 
+@app.route('/get_data',methods=['GET','POST'])
+def get_data():
+    data=Tests.query.all()
+    #Here I use jsonpickle custom library in order to parse Tests class object into JSON form
+    return jsonpickle.encode(data)
+
 @app.route('/get_data/<name>',methods=['GET','POST'])
 def get_data(name=None):
     data=eval(name).query.all()

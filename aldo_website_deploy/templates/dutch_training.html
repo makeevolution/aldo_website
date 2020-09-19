@@ -5,8 +5,8 @@
   $(document).ready(function(){
 		var i=0;
 		$.ajax({
-			//url: "http://localhost:5000/get_data/Tests",
-			url: "https://aldosebastian.pythonanywhere.com/get_data/Tests"
+			//url: "http://localhost:5000/Tests",
+			url: "https://aldosebastian.pythonanywhere.com/Tests"
 		}).done(function(data) {
 			data_parsed=jQuery.parseJSON(data);
 			//$("#test_ajax").html('<p>Test</p>').text();
