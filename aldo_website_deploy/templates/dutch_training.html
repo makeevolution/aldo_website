@@ -5,15 +5,15 @@
   $(document).ready(function(){
 		var i=0;
 		$.ajax({
-			url: "http://localhost:5000/get_data/Tests",
-			//url: "https://aldosebastian.pythonanywhere.com/get_data"
+			//url: "http://localhost:5000/get_data/Tests",
+			url: "https://aldosebastian.pythonanywhere.com/get_data"
 		}).done(function(data) {
 			data_parsed=jQuery.parseJSON(data);
 			//$("#test_ajax").html('<p>Test</p>').text();
 			data_parsed.forEach(function(dt){
 				var link_to_example="https://context.reverso.net/vertaling/nederlands-engels/"+ dt['question'];
-				var link_to_hint = "http://localhost:5000/hint"+ dt['question']
-				//var link_to_hint = ""https://aldosebastian.pythonanywhere.com/hint + dt['question']"
+				//var link_to_hint = "http://localhost:5000/hint"+ dt['question']
+				var link_to_hint = ""https://aldosebastian.pythonanywhere.com/hint + dt['question']"
 				$("#all_questions").append("<p>"+ dt['id'] +". " + dt['question'] + " " +
 										"<input id=\""+"question"+i+"\">" + "</input>" +
 										"<button  style=\""+"height:20px;width:20px"+"\" type=\""+"radio"+"\" id=\""+i+"\">" + "</button>" +
@@ -39,8 +39,8 @@
 		var x = document.getElementById("question"+this.id).value;
 		var current_id=this.id
 		$.ajax({
-			url: "http://localhost:5000/get_data",
-			//url: "https://aldosebastian.pythonanywhere.com/get_data"
+			//url: "http://localhost:5000/get_data",
+			url: "https://aldosebastian.pythonanywhere.com/get_data"
 		}).done(function(data) {
 			data_parsed=jQuery.parseJSON(data)
 			console.log(data_parsed[current_id]["answer"])
@@ -70,8 +70,8 @@
 				<h5 class="text-black-50 mt-0 font-italic">
 					Hier kun je je eigen oefening toevoegen, geen duplicaten mogelijk:
 				</h5>
-<!--				<form action="https://aldosebastian.pythonanywhere.com/add_question" method="post">-->
-				<form action="http://localhost:5000/add_question" method="post">
+				<form action="https://aldosebastian.pythonanywhere.com/add_question" method="post">
+<!--				<form action="http://localhost:5000/add_question" method="post">-->
 				  <label for="fname">Vraag:</label>
 				  <input type="text" id="fname" name="fname">
 				  <label for="lname">Antwoord:</label>
@@ -83,8 +83,8 @@
 				<h5 class="text-black-50 mt-0 font-italic">
 					Hier kun je een rij verwijderen:
 				</h5>
-<!--				<form action="https://aldosebastian.pythonanywhere.com/delete" method="post">-->
-				<form action="http://localhost:5000/delete" method="post">
+				<form action="https://aldosebastian.pythonanywhere.com/delete" method="post">
+<!--				<form action="http://localhost:5000/delete" method="post">-->
 				  <label for="deletes">Rij om te verwijderen:</label>
 				  <input type="text" id="deletes" name="deletes">
 				  <input type="submit" value="verwijder">
