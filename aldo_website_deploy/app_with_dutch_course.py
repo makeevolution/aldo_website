@@ -98,7 +98,7 @@ def get_data(name=None):
     #Here I use jsonpickle custom library in order to parse Tests class object into JSON form
     return jsonpickle.encode(data)
 
-@app.route('/hint/<question_need_hint>',methods=['GET','POST'])
+@app.route('/hint/<question_need_hint>')
 def hint(question_need_hint):
     data=Tests.query.filter_by(question=question_need_hint).first()
     return f'<h1> {data.hint} </h1>'
