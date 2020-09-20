@@ -93,7 +93,7 @@ def get_data():
     return jsonpickle.encode(data)
 
 @app.route('/get_data/<name>',methods=['GET','POST'])
-def get_data(name=None):
+def get_data_les(name=None):
     data=eval(name).query.all()
     #Here I use jsonpickle custom library in order to parse Tests class object into JSON form
     return jsonpickle.encode(data)
