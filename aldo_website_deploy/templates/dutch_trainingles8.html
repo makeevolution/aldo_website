@@ -12,8 +12,8 @@
 			//$("#test_ajax").html('<p>Test</p>').text();
 			data_parsed.forEach(function(dt){
 				var link_to_example="https://context.reverso.net/vertaling/nederlands-engels/"+ dt['question'];
-				var link_to_hint = "http://localhost:5000/hint"+ dt['question']+"/les8"
-				//var link_to_hint = "https://aldosebastian.pythonanywhere.com/hintles8" + dt['question']+"/les8"
+				//var link_to_hint = "http://localhost:5000/hint"+ dt['question']+"/les8"
+				var link_to_hint = "https://aldosebastian.pythonanywhere.com/hintles8" + dt['question']+"/les8"
 				$("#all_questions").append("<p>"+ dt['id'] +". " + dt['question'] + " " +
 										"<input id=\""+"question"+i+"\">" + "</input>" +
 										"<button  style=\""+"height:20px;width:20px"+"\" type=\""+"radio"+"\" id=\""+i+"\">" + "</button>" +
