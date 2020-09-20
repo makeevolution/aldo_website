@@ -103,7 +103,7 @@ def hint(question_need_hint):
     data=Tests.query.filter_by(question=question_need_hint).first()
     return f'<h1> {data.hint} </h1>'
 
-@app.route('/hint<question_need_hint>/<name>',methods=['GET','POST'])
+@app.route('/hint/<question_need_hint>/<name>',methods=['GET','POST'])
 def hint_les(name,question_need_hint):
     data=eval(name).query.filter_by(question=question_need_hint).first()
     return f'<h1> {data.hint} </h1>'
