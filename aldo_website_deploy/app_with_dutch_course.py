@@ -1,5 +1,6 @@
 from flask import request, Flask, render_template, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
+import numpy as np
 import requests
 import json
 import jsonpickle
@@ -19,9 +20,9 @@ class Tests(db.Model):
      id=db.Column(db.Integer, primary_key=True)
      question=db.Column(db.String(200),unique=True)
      answer = db.Column(db.String(200), unique=False)
-     hint = db.Column(db.String(2000), unique=False)
+     hint = db.Column(db.String(20000), unique=False)
      def __repr__(self):#Redefine what print(object) is
-         return '{} {}'.format(self.question,self.answer)
+         return ';{},{},{};'.format(self.id,self.question,self.answer)
 
 
 class les6(db.Model):
@@ -79,6 +80,21 @@ class les9(db.Model):
 def dutch_training():
     data=Tests.query.all()
     return render_template("dutch_training.html",data=data)
+
+@app.route('/tonen_alleen_10',methods=['GET','POST'])
+def tonen_alleen_10():
+    tonen_alleen = request.form['tonen']
+    data_render_final=[]
+    if int(tonen_alleen)+10 > int(Tests.query.count()):
+        tonen_alleen_end=int(Tests.query.count())
+    else:
+        tonen_alleen_end=int(tonen_alleen)+10
+    for i in np.linspace(int(tonen_alleen),tonen_alleen_end,11):
+        data_render=Tests.query.\
+            filter_by(id = i).all()
+        data_render_final.append(data_render)
+    no_of_rows=i
+    return render_template("dutch_training_tonen_10_pages.html",data_render_final=data_render_final,no_of_rows=no_of_rows)
 
 @app.route('/dutch_training<name>',methods=['GET','POST'])
 def dutch_training_les(name=None):

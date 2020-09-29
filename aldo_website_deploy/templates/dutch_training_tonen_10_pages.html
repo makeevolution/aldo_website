@@ -4,33 +4,46 @@
 <script type="text/javascript">
   $(document).ready(function(){
 		var i=0;
-		$.ajax({
-			//url: "http://localhost:5000/get_data",
-			url: "/get_data"
-		}).done(function(data) {
-			data_parsed=jQuery.parseJSON(data);
+
+			no_of_rows='{{no_of_rows}}';
+			data='{{data_render_final}}'
+	  		console.log(data)
+	  		// for (var j=0;j<data.length;j++)
+			//   {
+			// 	  if (data[j] == ";" && data[j+1] != ']') {
+			// 	  		var start_pos=j+1;
+			// 	  		var end_pos=data.indexOf(';',start_pos);
+			// 		    var text_to_get = data.substring(start_pos,end_pos)
+			//
+			// 		    console.log(text_to_get.split(",")[0])
+			// 	  }
+			//   }
 			//$("#test_ajax").html('<p>Test</p>').text();
-			data_parsed.forEach(function(dt){
-				var link_to_example="https://context.reverso.net/vertaling/nederlands-engels/"+ dt['question'];
-				//var link_to_hint = "http://localhost:5000/hint"+ dt['question']
-				var link_to_hint = "/hint/" + dt['question']
-				$("#all_questions").append("<p>"+ dt['id'] +". " + dt['question'] + " " +
-										"<input id=\""+"question"+i+"\">" + "</input>" +
-										"<button  style=\""+"height:20px;width:20px"+"\" type=\""+"radio"+"\" id=\""+i+"\">" + "</button>" +
-						'<a href="' + link_to_example + '">'+'Voorbeeldgebruik'+'</a>'+ '<br>' + '</br>' +
-										'<a href="' + link_to_hint + '">'+'Eigen Hint'+'</a>'+"</p>");
-				//$("#all_questions").append('<a href="' + link_to_example + '">Gebruik voorbeeld</a>');
-				// $("#all_questions").append(
-				// 						"<input id=\""+"question"+i+"\">" + "</input>" +
-				// 						"<button type=\""+"button"+"\" id=\""+i+"\">"
-				// 						);
-				//$("#all_questions").html('<p>Test</p>').text();
-				i++;
-				//console.log(dt['question']);
-			});
+			for (var j=0;j<data.length;j++) {
+				if (data[j] == ";" && data[j + 1] != ']') {
+					var start_pos=j+1;
+					var end_pos=data.indexOf(';',start_pos);
+					var text_to_get = data.substring(start_pos,end_pos)
+					var link_to_example = "https://context.reverso.net/vertaling/nederlands-engels/" + text_to_get.split(",")[1];
+					//var link_to_hint = "http://localhost:5000/hint"+ dt['question']
+					var link_to_hint = "/hint/" + text_to_get.split(",")[1]
+					$("#all_questions").append("<p>" + text_to_get.split(",")[0] + ". " + text_to_get.split(",")[1] + " " +
+							"<input id=\"" + "question" + i + "\">" + "</input>" +
+							"<button  style=\"" + "height:20px;width:20px" + "\" type=\"" + "radio" + "\" id=\"" + i + "\">" + "</button>" +
+							'<a href="' + link_to_example + '">' + 'Voorbeeldgebruik' + '</a>' + '<br>' + '</br>' +
+							'<a href="' + link_to_hint + '">' + 'Eigen Hint' + '</a>' + "</p>");
+					//$("#all_questions").append('<a href="' + link_to_example + '">Gebruik voorbeeld</a>');
+					// $("#all_questions").append(
+					// 						"<input id=\""+"question"+i+"\">" + "</input>" +
+					// 						"<button type=\""+"button"+"\" id=\""+i+"\">"
+					// 						);
+					//$("#all_questions").html('<p>Test</p>').text();
+					i++;
+					//console.log(dt['question']);
+				}
+			}
 			//$('#questiontests').html(jQuery.parseJSON(data)['0']["question"]).text();
 			//console.log(jQuery.parseJSON(data).length);
-		});
   });
 </script>
 
@@ -83,19 +96,22 @@
 				<h5 class="text-black-50 mt-0 font-italic">
 					Hier kun je een rij verwijderen:
 				</h5>
-				<form action="/delete" style="color: #FF0000;" method="post">
+				<form action="/delete" method="post">
 <!--				<form action="http://localhost:5000/delete" method="post">-->
 				  <label for="deletes">Rij om te verwijderen:</label>
-				  <input type="text" id="deletes" style="color: #FF0000;" name="deletes">
-				  <input type="submit" style="color: #FF0000;" value="verwijder">
+				  <input type="text" style="color: #FF0000;" id="deletes" name="deletes">
+				  <input type="submit" value="verwijder">
 				</form>
+				<h5 class="text-black-50 mt-0 font-italic">
+					Optioneel: tonen alleen 10 rijen, schrijf de startnummer van de rij:
+				</h5>
 				<form action="/tonen_alleen_10" method="post">
 <!--				<form action="http://localhost:5000/delete" method="post">-->
-				  <label for="tonen">Optioneel; tonen alleen 10 rijen, schrijf de startnummer van de rij:</label>
+				  <label for="tonen">Startnummer</label>
 				  <input type="text" id="tonen" name="tonen">
 				  <input type="submit" value="tonen">
 				</form>
-
+				<a href="/dutch_training">Toon alle rijen</a>
 				<h5 class="text-black-50 mt-0 font-italic">
                     Schrijf de vertaling van elke zin, en druk op de knop om te controleren
                 </h5>
