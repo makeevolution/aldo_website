@@ -27,9 +27,12 @@
 					var link_to_example = "https://context.reverso.net/vertaling/nederlands-engels/" + text_to_get.split(",")[1];
 					//var link_to_hint = "http://localhost:5000/hint"+ dt['question']
 					var link_to_hint = "/hint/" + text_to_get.split(",")[1]
+
+					var row_id=text_to_get.split(",")[0]-1
+					console.log(row_id)
 					$("#all_questions").append("<p>" + text_to_get.split(",")[0] + ". " + text_to_get.split(",")[1] + " " +
 							"<input id=\"" + "question" + text_to_get.split(",")[0] + "\">" + "</input>" +
-							"<button  style=\"" + "height:20px;width:20px" + "\" type=\"" + "radio" + "\" id=\"" + i + "\">" + "</button>" +
+							"<button  style=\"" + "height:20px;width:20px" + "\" type=\"" + "radio" + "\" id=\"" + row_id + "\">" + "</button>" +
 							'<a href="' + link_to_example + '">' + 'Voorbeeldgebruik' + '</a>' + '<br>' + '</br>' +
 							'<a href="' + link_to_hint + '">' + 'Eigen Hint' + '</a>' + "</p>");
 					//$("#all_questions").append('<a href="' + link_to_example + '">Gebruik voorbeeld</a>');
@@ -50,6 +53,7 @@
 <script type="text/javascript">
 	$(document).on("click",'button',function() {
 		var x = document.getElementById("question"+this.id).value;
+		console.log(x)
 		var current_id=this.id
 		$.ajax({
 			//url: "http://localhost:5000/get_data",

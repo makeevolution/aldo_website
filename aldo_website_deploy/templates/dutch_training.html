@@ -37,6 +37,7 @@
 <script type="text/javascript">
 	$(document).on("click",'button',function() {
 		var x = document.getElementById("question"+this.id).value;
+		console.log(x)
 		var current_id=this.id
 		$.ajax({
 			//url: "http://localhost:5000/get_data",
