@@ -1,4 +1,4 @@
-from flask import request, Flask, render_template, send_from_directory
+from flask import request, Flask, render_template, send_from_directory, url_for
 from flask_sqlalchemy import SQLAlchemy
 import numpy as np
 import requests
@@ -13,7 +13,8 @@ app.config['SQLALCHEMY_BINDS']={'les6':'sqlite:///les6.db',
                                 'les8':'sqlite:///les8.db',
                                 'les9':'sqlite:///les9.db',
                                 'reflexief':'sqlite:///reflexief.db',
-                                'waar':'sqlite:///waar.db'
+                                'waar':'sqlite:///waar.db',
+                                'zich':'sqlite:///zich.db'
                                 }
 #https://www.youtube.com/watch?v=SB5BfYYpXjE
 #Create database instance for dutch learning
@@ -45,6 +46,14 @@ class reflexief(db.Model):
 
 class waar(db.Model):
     __bind_key__ = 'waar'
+    id = db.Column(db.Integer, primary_key=True)
+    question = db.Column(db.String(2000), unique=False)
+    answer = db.Column(db.String(2000), unique=False)
+    def __repr__(self):  # Redefine what print(object) is
+        return '{} {}'.format(self.question, self.answer)
+
+class zich(db.Model):
+    __bind_key__ = 'zich'
     id = db.Column(db.Integer, primary_key=True)
     question = db.Column(db.String(2000), unique=False)
     answer = db.Column(db.String(2000), unique=False)
@@ -94,6 +103,21 @@ class les9(db.Model):
     def __repr__(self):  # Redefine what print(object) is
         return '{} {}'.format(self.question, self.answer)
 
+def has_no_empty_params(rule):
+    defaults = rule.defaults if rule.defaults is not None else ()
+    arguments = rule.arguments if rule.arguments is not None else ()
+    return len(defaults) >= len(arguments)
+
+@app.route("/site-map")
+def site_map():
+    links = []
+    for rule in app.url_map.iter_rules():
+        # Filter out rules we can't navigate to in a browser
+        # and rules that require parameters
+        if "GET" in rule.methods and has_no_empty_params(rule):
+            url = url_for(rule.endpoint, **(rule.defaults or {}))
+            links.append((url, rule.endpoint))
+    return f'<p> {links[0]} </p>'
 
 @app.route('/dutch_training',methods=['GET','POST'])
 def dutch_training():
