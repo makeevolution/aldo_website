@@ -6,8 +6,9 @@
 		var i=0;
 		$.ajax({
 			//url: "http://localhost:5000/get_data/les6",
-			url: "https://aldosebastian.pythonanywhere.com/get_data/les6"
+			url: "/get_data/les6"
 		}).done(function(data) {
+			console.log(data)
 			data_parsed=jQuery.parseJSON(data);
 			//$("#test_ajax").html('<p>Test</p>').text();
 			data_parsed.forEach(function(dt){
@@ -66,7 +67,7 @@
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-lg-8 text-center">
-				<h2 class="text-black-50 mt-0">Dutch oefening</h2>
+				<h2 class="text-black-50 mt-0">Les 6 Nederlands vocabulair oefening</h2>
 				<h5 class="text-black-50 mt-0 font-italic">
 					Hier kun je je eigen oefening toevoegen, geen duplicaten mogelijk:
 				</h5>

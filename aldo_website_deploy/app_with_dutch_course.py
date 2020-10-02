@@ -12,10 +12,14 @@ app.config['SQLALCHEMY_BINDS']={'les6':'sqlite:///les6.db',
                                 'les7':'sqlite:///les7.db',
                                 'les8':'sqlite:///les8.db',
                                 'les9':'sqlite:///les9.db',
+                                'reflexief':'sqlite:///reflexief.db',
+                                'waar':'sqlite:///waar.db'
                                 }
 #https://www.youtube.com/watch?v=SB5BfYYpXjE
 #Create database instance for dutch learning
 db = SQLAlchemy(app)
+
+
 class Tests(db.Model):
      id=db.Column(db.Integer, primary_key=True)
      question=db.Column(db.String(200),unique=True)
@@ -23,7 +27,29 @@ class Tests(db.Model):
      hint = db.Column(db.String(20000), unique=False)
      def __repr__(self):#Redefine what print(object) is
          return ';{},{},{};'.format(self.id,self.question,self.answer)
+# To create a database instance:
+    #1. Go to terminal to aldo_webstie_deploy dir and fire up python
+    #2. type from app import db
+    #3. type db.create_all()
+    #4. type from app import Tests
+    #5. type test_1=Tests(question='',answer='')
+    #6. type db.session.add(test_1)
+    #7. type db.session.commit()
+class reflexief(db.Model):
+    __bind_key__ = 'reflexief'
+    id = db.Column(db.Integer, primary_key=True)
+    question = db.Column(db.String(2000), unique=False)
+    answer = db.Column(db.String(2000), unique=False)
+    def __repr__(self):  # Redefine what print(object) is
+        return '{} {}'.format(self.question, self.answer)
 
+class waar(db.Model):
+    __bind_key__ = 'waar'
+    id = db.Column(db.Integer, primary_key=True)
+    question = db.Column(db.String(2000), unique=False)
+    answer = db.Column(db.String(2000), unique=False)
+    def __repr__(self):  # Redefine what print(object) is
+        return '{} {}'.format(self.question, self.answer)
 
 class les6(db.Model):
     __bind_key__='les6'
@@ -67,19 +93,50 @@ class les9(db.Model):
 
     def __repr__(self):  # Redefine what print(object) is
         return '{} {}'.format(self.question, self.answer)
-# To create a database instance:
-    #1. Go to terminal to aldo_webstie_deploy dir and fire up python
-    #2. type from app import db
-    #3. type db.create_all()
-    #4. type from app import Tests
-    #5. type test_1=Tests(question='',answer='')
-    #6. type db.session.add(test_1)
-    #7. type db.session.commit()
+
 
 @app.route('/dutch_training',methods=['GET','POST'])
 def dutch_training():
     data=Tests.query.all()
     return render_template("dutch_training.html",data=data)
+
+@app.route('/<name>_oefenen')
+def oefening_oefenen(name="reflexief"):
+    return render_template(name+"_oefenen.html")
+
+@app.route('/get_<name>_data')
+def get_oefening_data(name=None):
+    data2=eval(name).query.all()
+    app.logger.info(data2)
+    return jsonpickle.encode(data2)
+
+@app.route('/add_question_<name>',methods=['GET','POST'])
+def add_question_oefenen(name='None'):
+    new_question=request.form['fname']
+    new_answer=request.form['lname']
+    db.create_all()
+
+     # change question and answer field to reflect what you want
+    test_1 = eval(name)(question=new_question, answer=new_answer)
+
+    db.session.add(test_1)
+    db.session.commit()
+    return render_template(name+"_oefenen.html")
+
+@app.route('/delete_<name>',methods=['GET','POST'])
+def delete_data_oefenen(name=None):
+    delete_question=request.form['deletes']
+    missing = eval(name).query.filter_by(id=delete_question).first()
+    db.session.delete(missing)
+    db.session.commit()
+
+    data = eval(name).query.all()
+    j=1
+    for i in data:
+        i.id=j
+        j=j+1
+    db.session.commit()
+    return render_template(name+"_oefenen.html")
 
 @app.route('/tonen_alleen_10',methods=['GET','POST'])
 def tonen_alleen_10():
