@@ -13,8 +13,9 @@
 			console.log(data2)
 			data_parsed=jQuery.parseJSON(data2);
 			data_parsed.forEach(function(dt){
-				$("#all_questions").append("<p>"+ dt['id'] +". " + dt['question'] + " " +
-										"<button  style=\""+"height:20px;width:20px"+"\" type=\""+"radio"+"\" id=\""+"button"+i+"\">" + "</button>" +"</p>");
+				$("#all_questions").append("<p>"+ dt['id'] +". " + dt['question'] + " " +"<input type=\""+"text"+"\">"+
+										"<button  style=\""+"height:20px;width:20px"+"\" type=\""+"radio"+"\" id=\""+"button"+i+"\">" + "</button>" +
+										"</p>");
                 $("#all_questions").append("<a style=\""+"\" id=\""+"answer"+i+"\">"+ dt['answer'] + "</a>");
 				$('#answer'+i).toggle();
 						// '<a href="' + link_to_example + '">'+'Voorbeeldgebruik'+'</a>'+ '<br>' + '</br>' +
