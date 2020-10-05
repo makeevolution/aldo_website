@@ -14,7 +14,8 @@ app.config['SQLALCHEMY_BINDS']={'les6':'sqlite:///les6.db',
                                 'les9':'sqlite:///les9.db',
                                 'reflexief':'sqlite:///reflexief.db',
                                 'waar':'sqlite:///waar.db',
-                                'zich':'sqlite:///zich.db'
+                                'zich':'sqlite:///zich.db',
+                                'vertaling':'sqlite:///vertaling.db'
                                 }
 #https://www.youtube.com/watch?v=SB5BfYYpXjE
 #Create database instance for dutch learning
@@ -54,6 +55,14 @@ class waar(db.Model):
 
 class zich(db.Model):
     __bind_key__ = 'zich'
+    id = db.Column(db.Integer, primary_key=True)
+    question = db.Column(db.String(2000), unique=False)
+    answer = db.Column(db.String(2000), unique=False)
+    def __repr__(self):  # Redefine what print(object) is
+        return '{} {}'.format(self.question, self.answer)
+
+class vertaling(db.Model):
+    __bind_key__ = 'vertaling'
     id = db.Column(db.Integer, primary_key=True)
     question = db.Column(db.String(2000), unique=False)
     answer = db.Column(db.String(2000), unique=False)

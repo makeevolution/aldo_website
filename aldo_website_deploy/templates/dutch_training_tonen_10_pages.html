@@ -54,7 +54,7 @@
 	$(document).on("click",'button',function() {
 		var x = document.getElementById("question"+this.id).value;
 		console.log(x)
-		var current_id=this.id
+		var current_id=this.id+1
 		$.ajax({
 			//url: "http://localhost:5000/get_data",
 			url: "/get_data"
@@ -103,7 +103,7 @@
 				<form action="/delete" method="post">
 <!--				<form action="http://localhost:5000/delete" method="post">-->
 				  <label for="deletes">Rij om te verwijderen:</label>
-				  <input type="text" style="color: #FF0000;" id="deletes" name="deletes">
+				  <input type="text" style="color: #ff0000;" id="deletes" name="deletes">
 				  <input type="submit" value="verwijder">
 				</form>
 				<h5 class="text-black-50 mt-0 font-italic">
