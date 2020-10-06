@@ -28,7 +28,7 @@
 					//var link_to_hint = "http://localhost:5000/hint"+ dt['question']
 					var link_to_hint = "/hint/" + text_to_get.split(",")[1]
 
-					var row_id=text_to_get.split(",")[0]-1
+					var row_id=text_to_get.split(",")[0]
 					console.log(row_id)
 					$("#all_questions").append("<p>" + text_to_get.split(",")[0] + ". " + text_to_get.split(",")[1] + " " +
 							"<input id=\"" + "question" + text_to_get.split(",")[0] + "\">" + "</input>" +
@@ -54,7 +54,7 @@
 	$(document).on("click",'button',function() {
 		var x = document.getElementById("question"+this.id).value;
 		console.log(x)
-		var current_id=this.id+1
+		var current_id=this.id-1
 		$.ajax({
 			//url: "http://localhost:5000/get_data",
 			url: "/get_data"
