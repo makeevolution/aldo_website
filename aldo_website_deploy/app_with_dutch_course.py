@@ -119,13 +119,9 @@ def has_no_empty_params(rule):
     arguments = rule.arguments if rule.arguments is not None else ()
     return len(defaults) >= len(arguments)
 
-@app.route("/dutch_training_welkom")
-def dutch_training_welkom():
-    return render_template("dutch_training_list.html")
-
 @app.route("/dutch_training_list")
 def dutch_training_list():
-    mypath = "C:/Users/Hp/OneDrive/pythonanywhere/aldo_website_deploy/templates"
+    mypath = "/aldo_website_deploy/templates"
     routes = [f for f in listdir(mypath) if f[-4:] == "html"]
 
     routes.remove("dutch_training_list.html")
