@@ -5,6 +5,7 @@ import requests
 import json
 import jsonpickle
 from os import listdir
+import os
 
 app = Flask(__name__)
 app.jinja_env.filters['zip'] = zip
@@ -121,7 +122,8 @@ def has_no_empty_params(rule):
 
 @app.route("/dutch_training_list")
 def dutch_training_list():
-    mypath = "/aldo_website_deploy/templates"
+    mypath = os.getcwd()
+    mypath = "{}/templates".format(mypath)
     routes = [f for f in listdir(mypath) if f[-4:] == "html"]
 
     routes.remove("dutch_training_list.html")
