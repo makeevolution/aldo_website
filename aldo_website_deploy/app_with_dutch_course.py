@@ -4,8 +4,10 @@ import numpy as np
 import requests
 import json
 import jsonpickle
+from os import listdir
 
 app = Flask(__name__)
+app.jinja_env.filters['zip'] = zip
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 1
 app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///site.db'
 app.config['SQLALCHEMY_BINDS']={'les6':'sqlite:///les6.db',
@@ -117,16 +119,24 @@ def has_no_empty_params(rule):
     arguments = rule.arguments if rule.arguments is not None else ()
     return len(defaults) >= len(arguments)
 
-@app.route("/site-map")
-def site_map():
-    links = []
-    for rule in app.url_map.iter_rules():
-        # Filter out rules we can't navigate to in a browser
-        # and rules that require parameters
-        if "GET" in rule.methods and has_no_empty_params(rule):
-            url = url_for(rule.endpoint, **(rule.defaults or {}))
-            links.append((url, rule.endpoint))
-    return f'<p> {links[0]} </p>'
+@app.route("/dutch_training_welkom")
+def dutch_training_welkom():
+    return render_template("dutch_training_list.html")
+
+@app.route("/dutch_training_list")
+def dutch_training_list():
+    mypath = "C:/Users/Hp/OneDrive/pythonanywhere/aldo_website_deploy/templates"
+    routes = [f for f in listdir(mypath) if f[-4:] == "html"]
+
+    routes.remove("dutch_training_list.html")
+    routes.remove("dutch_training_tonen_10_pages.html")
+
+    routes_alleen_dutch=[i for i in routes if i[0:5]=="dutch"]
+    links=["/{}".format(f) for f in routes_alleen_dutch]
+    links = [f[0:len(f)-5] for f in links]
+
+    names=[f[0:len(f)-5] for f in routes_alleen_dutch]
+    return render_template("dutch_training_list.html",list=links,names=names)
 
 @app.route('/dutch_training',methods=['GET','POST'])
 def dutch_training():
