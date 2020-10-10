@@ -18,7 +18,8 @@ app.config['SQLALCHEMY_BINDS']={'les6':'sqlite:///les6.db',
                                 'reflexief':'sqlite:///reflexief.db',
                                 'waar':'sqlite:///waar.db',
                                 'zich':'sqlite:///zich.db',
-                                'vertaling':'sqlite:///vertaling.db'
+                                'vertaling':'sqlite:///vertaling.db',
+                                'diedatwat':'sqlite:///diedatwat.db'
                                 }
 #https://www.youtube.com/watch?v=SB5BfYYpXjE
 #Create database instance for dutch learning
@@ -45,6 +46,15 @@ class reflexief(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     question = db.Column(db.String(2000), unique=False)
     answer = db.Column(db.String(2000), unique=False)
+    def __repr__(self):  # Redefine what print(object) is
+        return '{} {}'.format(self.question, self.answer)
+
+class diedatwat(db.Model):
+    __bind_key__ = 'diedatwat'
+    id = db.Column(db.Integer, primary_key=True)
+    question = db.Column(db.String(2000), unique=False)
+    answer = db.Column(db.String(2000), unique=False)
+
     def __repr__(self):  # Redefine what print(object) is
         return '{} {}'.format(self.question, self.answer)
 
@@ -162,7 +172,7 @@ def add_question_oefenen(name='None'):
 
     db.session.add(test_1)
     db.session.commit()
-    return render_template(name+"_oefenen.html")
+    return render_template("dutch_"+name+"_oefenen.html")
 
 @app.route('/delete_<name>',methods=['GET','POST'])
 def delete_data_oefenen(name=None):
@@ -177,7 +187,7 @@ def delete_data_oefenen(name=None):
         i.id=j
         j=j+1
     db.session.commit()
-    return render_template(name+"_oefenen.html")
+    return render_template("dutch_"+name+"_oefenen.html")
 
 @app.route('/tonen_alleen_10',methods=['GET','POST'])
 def tonen_alleen_10():

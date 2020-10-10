@@ -1,0 +1,78 @@
+{%extends "layout.html" %} {% block content %}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+		var i=0;
+		$.ajax({
+			//url: "http://localhost:5000/get_data/les9",
+			url: "/get_diedatwat_data"
+		}).done(function(data2) {
+			console.log(data2);
+			data_parsed=jQuery.parseJSON(data2);
+			data_parsed.forEach(function(dt){
+				$("#all_questions").append("<p>"+ dt['id'] +". " + dt['question'] + " " +"<input type=\""+"text"+"\">"+
+										"<button  style=\""+"height:20px;width:20px"+"\" type=\""+"radio"+"\" id=\""+"button"+i+"\">" + "</button>" +
+										"</p>");
+                $("#all_questions").append("<a style=\""+"\" id=\""+"answer"+i+"\">"+ dt['answer'] + "</a>");
+				$('#answer'+i).toggle();
+						// '<a href="' + link_to_example + '">'+'Voorbeeldgebruik'+'</a>'+ '<br>' + '</br>' +
+						// 				'<a href="' + link_to_hint + '">'+'Eigen Hint'+'</a>'+"</p>");
+
+				i++;
+			});
+			//$('#questiontests').html(jQuery.parseJSON(data)['0']["question"]).text();
+			//console.log(jQuery.parseJSON(data).length);
+		});
+  });
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(document).on("click",'button',function() {
+			var current_id=this.id
+			var idlength=current_id.length
+			//var x = document.getElementById("button"+this.id).value;
+
+			var current_id=current_id.substring(6, idlength)
+			console.log(current_id)
+			$('#answer'+current_id).toggle();
+		});
+	});
+</script>
+
+<section class="page-section" style="background-color:lightblue" id="about">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-8 text-center">
+				<h2 class="text-black-50 mt-0">Verwijswoorden oefening</h2>
+				<h5 class="text-black-50 mt-0 font-italic">
+					Voeg een rij toe:
+				</h5>
+				<form action="/add_question_diedatwat" method="post">
+<!--				<form action="http://localhost:5000/add_questionles9" method="post">-->
+				  <label for="fname">Vraag:</label>
+				  <input type="text" id="fname" name="fname">
+				  <label for="lname">Antwoord:</label>
+				  <input type="text" id="lname" name="lname">
+				  <input type="submit" value="opslaan">
+				</form>
+
+				<h5 class="text-black-50 mt-0 font-italic">
+				Voeg de juiste die/dat/wat
+                </h5>
+				<div class="inner" id="all_questions">
+				</div>
+				<h5 class="text-black-50 mt-0 font-italic">
+					Hier kun je een rij verwijderen:
+				</h5>
+				<form action="/delete_diedatwat" method="post">
+				  <label for="deletes">Rij om te verwijderen:</label>
+				  <input type="text" id="deletes" name="deletes">
+				  <input type="submit" value="verwijder">
+				</form>
+			</div>
+		</div>
+	</div>
+
+</section> {% endblock %}
