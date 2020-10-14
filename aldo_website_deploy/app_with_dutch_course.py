@@ -19,7 +19,8 @@ app.config['SQLALCHEMY_BINDS']={'les6':'sqlite:///les6.db',
                                 'waar':'sqlite:///waar.db',
                                 'zich':'sqlite:///zich.db',
                                 'vertaling':'sqlite:///vertaling.db',
-                                'diedatwat':'sqlite:///diedatwat.db'
+                                'diedatwat':'sqlite:///diedatwat.db',
+                                'onregelmatig_verba':'sqlite:///onregelmatig_verba.db'
                                 }
 #https://www.youtube.com/watch?v=SB5BfYYpXjE
 #Create database instance for dutch learning
@@ -51,6 +52,15 @@ class reflexief(db.Model):
 
 class diedatwat(db.Model):
     __bind_key__ = 'diedatwat'
+    id = db.Column(db.Integer, primary_key=True)
+    question = db.Column(db.String(2000), unique=False)
+    answer = db.Column(db.String(2000), unique=False)
+
+    def __repr__(self):  # Redefine what print(object) is
+        return '{} {}'.format(self.question, self.answer)
+
+class onregelmatig_verba(db.Model):
+    __bind_key__ = 'onregelmatig_verba'
     id = db.Column(db.Integer, primary_key=True)
     question = db.Column(db.String(2000), unique=False)
     answer = db.Column(db.String(2000), unique=False)
