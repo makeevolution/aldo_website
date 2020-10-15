@@ -164,7 +164,7 @@ def dutch_training():
 @app.route('/dutch_training_vertal_engels',methods=["GET","POST"])
 def dutch_training_vertal_engels():
     data=Tests.query.all()
-    return render_template("dutch_training_vertal_engels",data=data)
+    return render_template("dutch_training_vertal_engels.html",data=data)
 
 @app.route('/<name>_oefenen')
 def oefening_oefenen(name="reflexief"):
