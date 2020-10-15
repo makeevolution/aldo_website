@@ -1,0 +1,111 @@
+{%extends "layout.html" %} {% block content %}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+		var i=0;
+		$.ajax({
+			//url: "http://localhost:5000/get_data",
+			url: "/get_data"
+		}).done(function(data) {
+			data_parsed=jQuery.parseJSON(data);
+			//$("#test_ajax").html('<p>Test</p>').text();
+			data_parsed.forEach(function(dt){
+				var link_to_example="https://context.reverso.net/vertaling/nederlands-engels/"+ dt['question'];
+				//var link_to_hint = "http://localhost:5000/hint"+ dt['question']
+				var link_to_hint = "/hint/" + dt['question']
+				$("#all_questions").append("<p>"+ dt['id'] +". " + dt['answer'] + " " +
+										"<input id=\""+"question"+i+"\">" + "</input>" +
+										"<button  style=\""+"height:20px;width:20px"+"\" type=\""+"radio"+"\" id=\""+i+"\">" + "</button>" +
+						'<a href="' + link_to_example + '">'+'Voorbeeldgebruik'+'</a>'+ '<br>' + '</br>' +
+										'<a href="' + link_to_hint + '">'+'Eigen Hint'+'</a>'+"</p>");
+				//$("#all_questions").append('<a href="' + link_to_example + '">Gebruik voorbeeld</a>');
+				// $("#all_questions").append(
+				// 						"<input id=\""+"question"+i+"\">" + "</input>" +
+				// 						"<button type=\""+"button"+"\" id=\""+i+"\">"
+				// 						);
+				//$("#all_questions").html('<p>Test</p>').text();
+				i++;
+				//console.log(dt['question']);
+			});
+			//$('#questiontests').html(jQuery.parseJSON(data)['0']["question"]).text();
+			//console.log(jQuery.parseJSON(data).length);
+		});
+  });
+</script>
+
+<script type="text/javascript">
+	$(document).on("click",'button',function() {
+		var x = document.getElementById("question"+this.id).value;
+		console.log(x)
+		var current_id=this.id
+		$.ajax({
+			//url: "http://localhost:5000/get_data",
+			url: "/get_data"
+		}).done(function(data) {
+			data_parsed=jQuery.parseJSON(data)
+			console.log(data_parsed[current_id]["answer"])
+			if (x==data_parsed[current_id]["question"]){
+				sweetAlert(
+					{
+					title: "Juist!",
+					icon: "success"
+					})
+			} else {
+				sweetAlert({
+					title: "Ontjuist!",
+					icon: "warning",
+					text: "Uw response is " + x + " maar het antwoord is " + data_parsed[current_id]["question"],
+					})
+			}
+			console.log("button click");
+		});
+	});
+</script>
+
+<section class="page-section" style="background-color:lightblue" id="about">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-8 text-center">
+				<h2 class="text-black-50 mt-0">Nederlands vocabulair oefening</h2>
+				<h5 class="text-black-50 mt-0 font-italic">
+					Hier kun je je eigen oefening toevoegen, vraag moet in Nederlands zijn:
+				</h5>
+				<form action="/add_question" method="post">
+<!--				<form action="http://localhost:5000/add_question" method="post">-->
+				  <label for="fname">Vraag:</label>
+				  <input type="text" id="fname" name="fname">
+				  <label for="lname">Antwoord:</label>
+				  <input type="text" id="lname" name="lname">
+				  <label for="hints">Hint:</label>
+				  <input type="text" id="hints" name="hints">
+				  <input type="submit" value="opslaan">
+				</form>
+				<h5 class="text-black-50 mt-0 font-italic">
+					Hier kun je een rij verwijderen:
+				</h5>
+				<form action="/delete" style="color: #FF0000;" method="post">
+<!--				<form action="http://localhost:5000/delete" method="post">-->
+				  <label for="deletes">Rij om te verwijderen:</label>
+				  <input type="text" id="deletes" style="color: #FF0000;" name="deletes">
+				  <input type="submit" style="color: #FF0000;" value="verwijder">
+				</form>
+				<form action="/tonen_alleen_10" method="post">
+<!--				<form action="http://localhost:5000/delete" method="post">-->
+				  <label for="tonen">Optioneel; tonen alleen 10 rijen, schrijf de startnummer van de rij:</label>
+				  <input type="text" id="tonen" name="tonen">
+				  <input type="submit" value="tonen">
+				</form>
+
+				<h5 class="text-black-50 mt-0 font-italic">
+                    Schrijf de vertaling van elke zin, en druk op de knop om te controleren
+                </h5>
+				<div class="inner" id="all_questions">
+				</div>
+				<div class="inner" id="test_ajax">
+				</div>
+			</div>
+		</div>
+	</div>
+
+</section> {% endblock %}

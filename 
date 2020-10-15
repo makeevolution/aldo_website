@@ -1,0 +1,161 @@
+[1mdiff --git a/aldo_website_deploy/app_with_dutch_course.py b/aldo_website_deploy/app_with_dutch_course.py[m
+[1mindex 310ac57..d96b900 100644[m
+[1m--- a/aldo_website_deploy/app_with_dutch_course.py[m
+[1m+++ b/aldo_website_deploy/app_with_dutch_course.py[m
+[36m@@ -19,7 +19,8 @@[m [mapp.config['SQLALCHEMY_BINDS']={'les6':'sqlite:///les6.db',[m
+                                 'waar':'sqlite:///waar.db',[m
+                                 'zich':'sqlite:///zich.db',[m
+                                 'vertaling':'sqlite:///vertaling.db',[m
+[31m-                                'diedatwat':'sqlite:///diedatwat.db'[m
+[32m+[m[32m                                'diedatwat':'sqlite:///diedatwat.db',[m
+[32m+[m[32m                                'er':'sqlite:///er.db'[m
+                                 }[m
+ #https://www.youtube.com/watch?v=SB5BfYYpXjE[m
+ #Create database instance for dutch learning[m
+[36m@@ -58,6 +59,15 @@[m [mclass diedatwat(db.Model):[m
+     def __repr__(self):  # Redefine what print(object) is[m
+         return '{} {}'.format(self.question, self.answer)[m
+ [m
+[32m+[m[32mclass er(db.Model):[m
+[32m+[m[32m    __bind_key__ = 'er'[m
+[32m+[m[32m    id = db.Column(db.Integer, primary_key=True)[m
+[32m+[m[32m    question = db.Column(db.String(2000), unique=False)[m
+[32m+[m[32m    answer = db.Column(db.String(2000), unique=False)[m
+[32m+[m
+[32m+[m[32m    def __repr__(self):  # Redefine what print(object) is[m
+[32m+[m[32m        return '{} {}'.format(self.question, self.answer)[m
+[32m+[m
+ class waar(db.Model):[m
+     __bind_key__ = 'waar'[m
+     id = db.Column(db.Integer, primary_key=True)[m
+[36m@@ -189,6 +199,21 @@[m [mdef delete_data_oefenen(name=None):[m
+     db.session.commit()[m
+     return render_template("dutch_"+name+"_oefenen.html")[m
+ [m
+[32m+[m[32m@app.route('/delete_veilig_<name>',methods=['GET','POST'])[m
+[32m+[m[32mdef delete_data_veilig_oefenen(name=None):[m
+[32m+[m[32m    delete_question=request.form['deletes'][m
+[32m+[m[32m    missing = eval(name).query.filter_by(id=delete_question).first()[m
+[32m+[m[32m    db.session.delete(missing)[m
+[32m+[m[32m    db.session.commit()[m
+[32m+[m
+[32m+[m[32m    data = eval(name).query.all()[m
+[32m+[m[32m    j=1[m
+[32m+[m[32m    for i in data:[m
+[32m+[m[32m        i.id=j[m
+[32m+[m[32m        j=j+1[m
+[32m+[m[32m    db.session.commit()[m
+[32m+[m[32m    return render_template("dutch_"+name+"_oefenen.html")[m
+[32m+[m
+ @app.route('/tonen_alleen_10',methods=['GET','POST'])[m
+ def tonen_alleen_10():[m
+     tonen_alleen = request.form['tonen'][m
+[1mdiff --git a/aldo_website_deploy/er.db b/aldo_website_deploy/er.db[m
+[1mindex e69de29..7a6d119 100644[m
+Binary files a/aldo_website_deploy/er.db and b/aldo_website_deploy/er.db differ
+[1mdiff --git a/aldo_website_deploy/templates/dutch_diedatwat_oefenen.html b/aldo_website_deploy/templates/dutch_diedatwat_oefenen.html[m
+[1mindex 7a0fd5d..2e678aa 100644[m
+[1m--- a/aldo_website_deploy/templates/dutch_diedatwat_oefenen.html[m
+[1m+++ b/aldo_website_deploy/templates/dutch_diedatwat_oefenen.html[m
+[36m@@ -45,7 +45,7 @@[m
+ 	<div class="container">[m
+ 		<div class="row justify-content-center">[m
+ 			<div class="col-lg-8 text-center">[m
+[31m-				<h2 class="text-black-50 mt-0">Verwijswoorden oefening</h2>[m
+[32m+[m				[32m<h2 class+="text-black-50 mt-0">Die/dat/wat oefening</h2>[m
+ 				<h5 class="text-black-50 mt-0 font-italic">[m
+ 					Voeg een rij toe:[m
+ 				</h5>[m
+[36m@@ -59,8 +59,11 @@[m
+ 				</form>[m
+ [m
+ 				<h5 class="text-black-50 mt-0 font-italic">[m
+[31m-				Voeg de juiste die/dat/wat[m
+[31m-                </h5>[m
+[32m+[m				[32mVoeg de juiste die/dat/wat.[m
+[32m+[m				[32m</h5>[m
+[32m+[m					[32m<h5 class="text-black-50 mt-0 font-italic">[m
+[32m+[m				[32mWat: voor indefinite objects zoals "iets", voor comparatief/superlatief/het enige ding van alles in dit wereld/"encompassing"[m
+[32m+[m					[32m</h5>[m
+ 				<div class="inner" id="all_questions">[m
+ 				</div>[m
+ 				<h5 class="text-black-50 mt-0 font-italic">[m
+[1mdiff --git a/aldo_website_deploy/templates/dutch_er_oefenen.html b/aldo_website_deploy/templates/dutch_er_oefenen.html[m
+[1mindex 2e678aa..298baf5 100644[m
+[1m--- a/aldo_website_deploy/templates/dutch_er_oefenen.html[m
+[1m+++ b/aldo_website_deploy/templates/dutch_er_oefenen.html[m
+[36m@@ -6,7 +6,7 @@[m
+ 		var i=0;[m
+ 		$.ajax({[m
+ 			//url: "http://localhost:5000/get_data/les9",[m
+[31m-			url: "/get_diedatwat_data"[m
+[32m+[m			[32murl: "/get_er_data"[m
+ 		}).done(function(data2) {[m
+ 			console.log(data2);[m
+ 			data_parsed=jQuery.parseJSON(data2);[m
+[36m@@ -41,15 +41,26 @@[m
+ 	});[m
+ </script>[m
+ [m
+[32m+[m[32m<script type="text/javascript">[m
+[32m+[m	[32m$(document).ready(function(){[m
+[32m+[m		[32m$(document).on("click",'#verwijder',function() {[m
+[32m+[m			[32mconsole.log("formpress")[m
+[32m+[m			[32mvar value=document.getElementById('deletes').value[m
+[32m+[m			[32m$("#append_row").append("<a style=\""+"\" id=\""+"confirm_row"+"\">"+"row" +":" + value + "</a>");[m
+[32m+[m
+[32m+[m		[32m});[m
+[32m+[m	[32m});[m
+[32m+[m[32m</script>[m
+[32m+[m
+ <section class="page-section" style="background-color:lightblue" id="about">[m
+ 	<div class="container">[m
+ 		<div class="row justify-content-center">[m
+ 			<div class="col-lg-8 text-center">[m
+[31m-				<h2 class+="text-black-50 mt-0">Die/dat/wat oefening</h2>[m
+[32m+[m				[32m<h2 class+="text-black-50 mt-0">Er oefening</h2>[m
+ 				<h5 class="text-black-50 mt-0 font-italic">[m
+ 					Voeg een rij toe:[m
+ 				</h5>[m
+[31m-				<form action="/add_question_diedatwat" method="post">[m
+[32m+[m				[32m<form action="/add_question_er" method="post">[m
+ <!--				<form action="http://localhost:5000/add_questionles9" method="post">-->[m
+ 				  <label for="fname">Vraag:</label>[m
+ 				  <input type="text" id="fname" name="fname">[m
+[36m@@ -59,21 +70,30 @@[m
+ 				</form>[m
+ [m
+ 				<h5 class="text-black-50 mt-0 font-italic">[m
+[31m-				Voeg de juiste die/dat/wat.[m
+[32m+[m				[32mVoeg de juiste "er" en zijn positie, soms is het ook vertaling oefenen.[m
+ 				</h5>[m
+ 					<h5 class="text-black-50 mt-0 font-italic">[m
+[31m-				Wat: voor indefinite objects zoals "iets", voor comparatief/superlatief/het enige ding van alles in dit wereld/"encompassing"[m
+[32m+[m				[32mEr: er+preposition, "er" komt na het verbum of het "indirect object", als het negatie of adjectief is, het komt tussen "er" en de propositie[m
+ 					</h5>[m
+ 				<div class="inner" id="all_questions">[m
+ 				</div>[m
+ 				<h5 class="text-black-50 mt-0 font-italic">[m
+ 					Hier kun je een rij verwijderen:[m
+ 				</h5>[m
+[31m-				<form action="/delete_diedatwat" method="post">[m
+[31m-				  <label for="deletes">Rij om te verwijderen:</label>[m
+[32m+[m				[32m<label for="deletes">Rij om te verwijderen:</label>[m
+ 				  <input type="text" id="deletes" name="deletes">[m
+[31m-				  <input type="submit" value="verwijder">[m
+[31m-				</form>[m
+[32m+[m				[32m  <input type="button" id="verwijder">[m
+[32m+[m				[32m<div id="modal" class="popupContainer" style="display:none;">[m
+[32m+[m					[32m<div class="user_login">[m
+[32m+[m					[32m<form action="/delete_veilig_er" method="post">[m
+[32m+[m					[32m  <label for="deletes">Password:</label>[m
+[32m+[m					[32m  <input type="text" id="password" name="password">[m
+[32m+[m						[32m<div class="inner" id="append_row">[m
+[32m+[m						[32m</div>[m
+[32m+[m					[32m  <input type="submit" value="password">[m
+[32m+[m					[32m</form>[m
+[32m+[m					[32m</div>[m
+[32m+[m				[32m</div>[m
+ 			</div>[m
+ 		</div>[m
+ 	</div>[m
