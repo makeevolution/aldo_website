@@ -30,7 +30,7 @@
 
 					var row_id=text_to_get.split("!")[0]
 					console.log(row_id)
-					$("#all_questions").append("<p>" + text_to_get.split("!")[0] + ". " + text_to_get.split("!")[1] + " " +
+					$("#all_questions").append("<p>" + text_to_get.split("!")[0] + ". " + text_to_get.split("!")[2] + " " +
 							"<input id=\"" + "question" + text_to_get.split("!")[0] + "\">" + "</input>" +
 							"<button  style=\"" + "height:20px;width:20px" + "\" type=\"" + "radio" + "\" id=\"" + row_id + "\">" + "</button>" +
 							'<a href="' + link_to_example + '">' + 'Voorbeeldgebruik' + '</a>' + '<br>' + '</br>' + text_to_get.split("!")[3] +
@@ -61,7 +61,7 @@
 		}).done(function(data) {
 			data_parsed=jQuery.parseJSON(data)
 			console.log(data_parsed[current_id]["answer"])
-			if (x==data_parsed[current_id]["answer"]){
+			if (x==data_parsed[current_id]["question"]){
 				sweetAlert(
 					{
 					title: "Juist!",
@@ -71,7 +71,7 @@
 				sweetAlert({
 					title: "Ontjuist!",
 					icon: "warning",
-					text: "Uw response is " + x + " maar het antwoord is " + data_parsed[current_id]["answer"],
+					text: "Uw response is " + x + " maar het antwoord is " + data_parsed[current_id]["question"],
 					})
 			}
 			console.log("button click");
@@ -97,19 +97,11 @@
 				  <input type="text" id="hints" name="hints">
 				  <input type="submit" value="opslaan">
 				</form>
-				<h5 class="text-black-50 mt-0 font-italic">
-					Hier kun je een rij verwijderen:
-				</h5>
-				<form action="/delete" method="post">
-<!--				<form action="http://localhost:5000/delete" method="post">-->
-				  <label for="deletes">Rij om te verwijderen:</label>
-				  <input type="text" style="color: #ff0000;" id="deletes" name="deletes">
-				  <input type="submit" value="verwijder">
-				</form>
+
 				<h5 class="text-black-50 mt-0 font-italic">
 					Optioneel: tonen alleen 10 rijen, schrijf de startnummer van de rij:
 				</h5>
-				<form action="/tonen_alleen_10" method="post">
+				<form action="/tonen_alleen_10_vertal" method="post">
 <!--				<form action="http://localhost:5000/delete" method="post">-->
 				  <label for="tonen">Startnummer</label>
 				  <input type="text" id="tonen" name="tonen">
@@ -123,6 +115,15 @@
 				</div>
 				<div class="inner" id="test_ajax">
 				</div>
+				<h5 class="text-black-50 mt-0 font-italic">
+					Hier kun je een rij verwijderen:
+				</h5>
+				<form action="/delete" method="post">
+<!--				<form action="http://localhost:5000/delete" method="post">-->
+				  <label for="deletes">Rij om te verwijderen:</label>
+				  <input type="text" style="color: #ff0000;" id="deletes" name="deletes">
+				  <input type="submit" value="verwijder">
+				</form>
 			</div>
 		</div>
 	</div>
