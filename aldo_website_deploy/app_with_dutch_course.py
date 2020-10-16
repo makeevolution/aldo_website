@@ -20,7 +20,8 @@ app.config['SQLALCHEMY_BINDS']={'les6':'sqlite:///les6.db',
                                 'zich':'sqlite:///zich.db',
                                 'vertaling':'sqlite:///vertaling.db',
                                 'diedatwat':'sqlite:///diedatwat.db',
-                                'onregelmatig_verba':'sqlite:///onregelmatig_verba.db'
+                                'onregelmatig_verba':'sqlite:///onregelmatig_verba.db',
+                                'separabelverba':'sqlite:///separabelverba.db'
                                 }
 #https://www.youtube.com/watch?v=SB5BfYYpXjE
 #Create database instance for dutch learning
@@ -49,6 +50,17 @@ class reflexief(db.Model):
     answer = db.Column(db.String(2000), unique=False)
     def __repr__(self):  # Redefine what print(object) is
         return '{} {}'.format(self.question, self.answer)
+
+class separabelverba(db.Model):
+    __bind_key__ = 'separabelverba'
+    id = db.Column(db.Integer, primary_key=True)
+    question_dutch = db.Column(db.String(2000), unique=False)
+    question_english = db.Column(db.String(2000), unique=False)
+    gatentekst = db.Column(db.String(2000), unique=False)
+    answer_dutch = db.Column(db.String(2000), unique=False)
+    answer_english = db.Column(db.String(2000), unique=False)
+    def __repr__(self):  # Redefine what print(object) is
+        return '{} {}'.format(self.question_dutch, self.question_english)
 
 class diedatwat(db.Model):
     __bind_key__ = 'diedatwat'
@@ -166,6 +178,11 @@ def dutch_training_vertal_engels():
     data=Tests.query.all()
     return render_template("dutch_training_vertal_engels.html",data=data)
 
+@app.route('/dutch_separabel_verba_oefenen',methods=["GET","POST"])
+def dutch_separabel_verba_oefenen():
+    data=separabelverba.query.all()
+    return render_template("dutch_separabel_verba_oefenen.html",data=data)
+
 @app.route('/<name>_oefenen')
 def oefening_oefenen(name="reflexief"):
     return render_template(name+"_oefenen.html")
@@ -188,6 +205,22 @@ def add_question_oefenen(name='None'):
     db.session.add(test_1)
     db.session.commit()
     return render_template("dutch_"+name+"_oefenen.html")
+
+@app.route('/add_questionspecial_separabel',methods=['GET','POST'])
+def add_question_special_separabel(name='None'):
+    new_question = request.form['fname']
+    new_answer1 = request.form['lname1']
+    new_answer2 = request.form['lname2']
+    new_answer3 = request.form['lname3']
+    new_answer4 = request.form['lname4']
+    db.create_all()
+
+     # change question and answer field to reflect what you want
+    test_1 = separabelverba(question_dutch=new_question, question_english=new_answer1, gatentekst=new_answer2, answer_dutch=new_answer3,answer_english=new_answer4)
+
+    db.session.add(test_1)
+    db.session.commit()
+    return render_template("dutch_separabel_verba_oefenen.html")
 
 @app.route('/delete_<name>',methods=['GET','POST'])
 def delete_data_oefenen(name=None):
