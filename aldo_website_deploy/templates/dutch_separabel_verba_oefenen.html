@@ -13,17 +13,18 @@
 			console.log(data2)
 			data_parsed=jQuery.parseJSON(data2);
 			data_parsed.forEach(function(dt){
-				$("#all_questions").append("<p>"+ dt['id'] +". " + dt['question_english'] + " " + "/" + dt['gatentekst'] + " " + "<input type=\""+"text"+"\">"+
+				$("#all_questions").append("<p>"+ dt['id'] +". " + dt['question_english']  + "<input type=\""+"text"+"\">"+
 										"<button  style=\""+"height:20px;width:20px"+"\" type=\""+"radio"+"\" id=\""+"button"+i+"\">" + "</button>" +
 										"</p>");
 
-				$("#all_questions").append("<a style=\""+"\" id=\""+"question_english"+i+"\">"+ "("+ dt['question_dutch'] + ")" + "</a>");
+				$("#all_questions").append("<a style=\""+"\" id=\""+"question_english"+i+"\">"+ dt['question_dutch']  + "</a>");
 				$("#all_questions").append("<br>" + "</br>");
-				$("#all_questions").append("<a style=\""+"\" id=\""+"gatentekst"+i+"\">"+ "("+ dt['gatentekst']  + ")" + "</a>");
+				$("#all_questions").append("<a style=\""+"\" id=\""+"gatentekst"+i+"\">"+ dt['gatentekst']  + "</a>");
 				$("#all_questions").append("<br>" + "</br>");
-                $("#all_questions").append("<a style=\""+"\" id=\""+"answer_dutch"+i+"\">"+ dt['answer_dutch'] + " " + "/" + "</a>");
+                $("#all_questions").append("<a style=\""+"\" id=\""+"answer_dutch"+i+"\">"+ dt['answer_dutch'] + "</a>");
                 $("#all_questions").append("<br>" + "</br>");
 				$("#all_questions").append("<a style=\""+"\" id=\""+"answer_english"+i+"\">"+ dt['answer_english'] + "</a>");
+				$("#all_questions").append("<br>" + "</br>");
 				$('#gatentekst'+i).toggle();
 				$('#question_english'+i).toggle();
 				$('#answer_dutch'+i).toggle();
@@ -48,7 +49,7 @@
 
 			var current_id=current_id.substring(6, idlength)
 			console.log(current_id)
-			$('#gatentekst'+i).toggle();
+			$('#gatentekst'+current_id).toggle();
 			$('#question_english'+current_id).toggle();
 			$('#answer_dutch'+current_id).toggle();
 			$('#answer_english'+current_id).toggle();
