@@ -222,6 +222,10 @@ def add_question_special_separabel(name='None'):
     db.session.commit()
     return render_template("dutch_separabel_verba_oefenen.html")
 
+@app.route('/dutch_beelden_oefenen',methods=['GET','POST'])
+def dutch_beelden_oefenen():
+    return render_template("dutch_beelden_oefenen.html")
+
 @app.route('/delete_<name>',methods=['GET','POST'])
 def delete_data_oefenen(name=None):
     delete_question=request.form['deletes']
