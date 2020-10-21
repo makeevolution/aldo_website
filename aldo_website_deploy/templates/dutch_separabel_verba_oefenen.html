@@ -13,7 +13,7 @@
 			console.log(data2)
 			data_parsed=jQuery.parseJSON(data2);
 			data_parsed.forEach(function(dt){
-				$("#all_questions").append("<p>"+ dt['id'] +". " + dt['question_english']  + " / " +dt['question_dutch']+ "<input type=\""+"text"+"\">"+
+				$("#all_questions").append("<p>"+ dt['id'] +". " + dt['question_english']  + " / " +dt['gatentekst']+ "<input type=\""+"text"+"\">"+
 										"<button  style=\""+"height:20px;width:20px"+"\" type=\""+"radio"+"\" id=\""+"button"+i+"\">" + "</button>" +
 										"</p>");
 
