@@ -19,13 +19,13 @@
 
 				$("#all_questions").append("<a style=\""+"\" id=\""+"question_english"+i+"\">"+ dt['question_dutch']  + "</a>");
 				$("#all_questions").append("<br>" + "</br>");
-				$("#all_questions").append("<a style=\""+"\" id=\""+"gatentekst"+i+"\">"+ dt['gatentekst']  + "</a>");
-				$("#all_questions").append("<br>" + "</br>");
+				// $("#all_questions").append("<a style=\""+"\" id=\""+"gatentekst"+i+"\">"+ dt['gatentekst']  + "</a>");
+				// $("#all_questions").append("<br>" + "</br>");
                 $("#all_questions").append("<a style=\""+"\" id=\""+"answer_dutch"+i+"\">"+ dt['answer_dutch'] + "</a>");
                 $("#all_questions").append("<br>" + "</br>");
 				$("#all_questions").append("<a style=\""+"\" id=\""+"answer_english"+i+"\">"+ dt['answer_english'] + "</a>");
 				$("#all_questions").append("<br>" + "</br>");
-				$('#gatentekst'+i).toggle();
+				//$('#gatentekst'+i).toggle();
 				$('#question_english'+i).toggle();
 				$('#answer_dutch'+i).toggle();
 				$('#answer_english'+i).toggle();
@@ -49,7 +49,7 @@
 
 			var current_id=current_id.substring(6, idlength)
 			console.log(current_id)
-			$('#gatentekst'+current_id).toggle();
+			//$('#gatentekst'+current_id).toggle();
 			$('#question_english'+current_id).toggle();
 			$('#answer_dutch'+current_id).toggle();
 			$('#answer_english'+current_id).toggle();
