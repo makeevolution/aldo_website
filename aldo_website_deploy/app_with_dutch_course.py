@@ -104,6 +104,10 @@ class vertaling(db.Model):
     def __repr__(self):  # Redefine what print(object) is
         return '{} {}'.format(self.question, self.answer)
 
+@app.route("/dutch_testgatentekst_oefenen")
+def gatenteksttest():
+    return render_template("dutch_testgatentekst_oefenen.html")
+
 class les6(db.Model):
     __bind_key__='les6'
     id = db.Column(db.Integer, primary_key=True)
