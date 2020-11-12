@@ -27,13 +27,35 @@ $(document).ready(function() {
 	});
 });
 </script>
+	<script>
+$(document).ready(function() {
+	var theVideo = document.getElementById("audio");
+	$( "#30secterug" ).click(function(){
+				vid_currentTime = theVideo.currentTime;
+				theVideo.currentTime = vid_currentTime - 30;
+	});
+});
+</script>
 
-<div style="position:fixed">
-	<audio controls style="margin-bottom: 30px" id="audio">
+	<script>
+$(document).ready(function() {
+	var theVideo = document.getElementById("audio");
+	$( "#30secna" ).click(function(){
+				vid_currentTime = theVideo.currentTime;
+				theVideo.currentTime = vid_currentTime + 30;
+	});
+});
+</script>
+
+<div style="position:fixed;margin-top:30px;display: flex;">
+
+	<audio controls style="margin-bottom: 30px;width:300px" id="audio">
 		<source src="templates/thema8oefening21_nuclear_oefenen.mp3">
 	</audio>
 	<button id="5secterug" type="button" style="top:0;left:0;">5secterug</button>
 	<button id="5secna" type="button" style="top:0;left:0;">5secna</button>
+	<button id="30secterug" type="button" style="top:0;left:0;">30secterug</button>
+	<button id="30secna" type="button" style="top:0;left:0;">30secna</button>
 </div>
 
 
