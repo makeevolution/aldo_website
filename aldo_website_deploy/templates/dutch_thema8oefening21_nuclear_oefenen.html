@@ -2,9 +2,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" prefix="dc: http://purl.org/dc/elements/1.1/">
 <head><meta name="author" content="Created with Hot Potatoes by Half-Baked Software, registered to aldo."/><meta name="keywords" content="Hot Potatoes, Hot Potatoes, Half-Baked Software, Windows, University of Victoria"/>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
 
 <meta name="dc:creator" content="aldo" />
+<script>
+	$(document).ready(function() {
+		var theVideo = document.getElementById("audio");
+  		$( "#5secterug" ).click(function(){
+					vid_currentTime = theVideo.currentTime;
+					theVideo.currentTime = vid_currentTime - 5;
+		});
+	});
+	</script>
 
+<script>
+$(document).ready(function() {
+	var theVideo = document.getElementById("audio");
+	$( "#5secna" ).click(function(){
+				vid_currentTime = theVideo.currentTime;
+				theVideo.currentTime = vid_currentTime + 5;
+	});
+});
+</script>
+
+<div style="position:fixed">
+	<audio controls style="margin-bottom: 30px" id="audio">
+		<source src="templates/thema8oefening21_nuclear_oefenen.mp3">
+	</audio>
+	<button id="5secterug" type="button" style="top:0;left:0;">5secterug</button>
+	<button id="5secna" type="button" style="top:0;left:0;">5secna</button>
+</div>
 
 
 <title>

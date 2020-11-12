@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="65c8383d-e8de-49d2-84f1-6f00a3e111ac" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/aldo_website_deploy/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/aldo_website_deploy/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aldo_website_deploy/.idea/startbootstrap-creative-gh-pages.iml" beforeDir="false" afterPath="$PROJECT_DIR$/aldo_website_deploy/.idea/startbootstrap-creative-gh-pages.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/pythonanywhere.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pythonanywhere.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/aldo_website_deploy/templates/dutch_thema8oefening21_nuclear_oefenen.html" beforeDir="false" afterPath="$PROJECT_DIR$/aldo_website_deploy/templates/dutch_thema8oefening21_nuclear_oefenen.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +37,7 @@
       <workItem from="1604012786742" duration="14000" />
       <workItem from="1604012978213" duration="22000" />
       <workItem from="1605100122908" duration="21000" />
+      <workItem from="1605175094565" duration="809000" />
     </task>
     <servers />
   </component>
