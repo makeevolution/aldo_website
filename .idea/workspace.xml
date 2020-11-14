@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="65c8383d-e8de-49d2-84f1-6f00a3e111ac" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aldo_website_deploy/templates/dutch_thema8oefening21_nuclear_oefenen.html" beforeDir="false" afterPath="$PROJECT_DIR$/aldo_website_deploy/templates/dutch_thema8oefening21_nuclear_oefenen.html" afterDir="false" />
-    </list>
+    <list default="true" id="65c8383d-e8de-49d2-84f1-6f00a3e111ac" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,6 +41,7 @@
       <workItem from="1605100122908" duration="21000" />
       <workItem from="1605175094565" duration="809000" />
       <workItem from="1605212193748" duration="892000" />
+      <workItem from="1605388180200" duration="66000" />
     </task>
     <servers />
   </component>
@@ -51,9 +49,9 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="421" y="95" key="FileChooserDialogImpl" timestamp="1605224557852">
+    <state x="421" y="95" key="FileChooserDialogImpl" timestamp="1605388243729">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="421" y="95" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1605224557852" />
+    <state x="421" y="95" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1605388243729" />
   </component>
 </project>
