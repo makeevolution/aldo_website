@@ -6,19 +6,18 @@
 		var i=0;
 		$.ajax({
 			//url: "http://localhost:5000/get_data/les8",
-			url: "https://aldosebastian.pythonanywhere.com/get_data/les8"
+			url: "get_data/les8"
 		}).done(function(data) {
 			data_parsed=jQuery.parseJSON(data);
 			//$("#test_ajax").html('<p>Test</p>').text();
 			data_parsed.forEach(function(dt){
 				var link_to_example="https://context.reverso.net/vertaling/nederlands-engels/"+ dt['question'];
 				//var link_to_hint = "http://localhost:5000/hint"+ dt['question']+"/les8"
-				var link_to_hint = "https://aldosebastian.pythonanywhere.com/hint/" + dt['question']+"/les8"
+				var link_to_hint = "hint/" + dt['question']+"/les8"
 				$("#all_questions").append("<p>"+ dt['id'] +". " + dt['question'] + " " +
 										"<input id=\""+"question"+i+"\">" + "</input>" +
 										"<button  style=\""+"height:20px;width:20px"+"\" type=\""+"radio"+"\" id=\""+i+"\">" + "</button>" +
-						'<a href="' + link_to_example + '">'+'Voorbeeldgebruik'+'</a>'+ '<br>' + '</br>' +
-										'<a href="' + link_to_hint + '">'+'Eigen Hint'+'</a>'+"</p>");
+						'<a href="' + link_to_example + '">'+'Voorbeeldgebruik'+'</a>'+ '<br>' + '</br>' + dt['hint'] +"<br>"+"</br>") ;
 				//$("#all_questions").append('<a href="' + link_to_example + '">Gebruik voorbeeld</a>');
 				// $("#all_questions").append(
 				// 						"<input id=\""+"question"+i+"\">" + "</input>" +
@@ -40,7 +39,7 @@
 		var current_id=this.id
 		$.ajax({
 			//url: "http://localhost:5000/get_data/les8",
-			url: "https://aldosebastian.pythonanywhere.com/get_data/les8"
+			url: "get_data/les8"
 		}).done(function(data) {
 			data_parsed=jQuery.parseJSON(data)
 			console.log(data_parsed[current_id]["answer"])
@@ -70,7 +69,7 @@
 				<h5 class="text-black-50 mt-0 font-italic">
 					Hier kun je je eigen oefening toevoegen, geen duplicaten mogelijk:
 				</h5>
-				<form action="https://aldosebastian.pythonanywhere.com/add_questionles8" method="post">
+				<form action="add_questionles8" method="post">
 <!--				<form action="http://localhost:5000/add_questionles8" method="post">-->
 				  <label for="fname">Vraag:</label>
 				  <input type="text" id="fname" name="fname">
@@ -83,7 +82,7 @@
 				<h5 class="text-black-50 mt-0 font-italic">
 					Hier kun je een rij verwijderen:
 				</h5>
-				<form action="https://aldosebastian.pythonanywhere.com/deleteles8" method="post">
+				<form action="deleteles8" method="post">
 <!--				<form action="http://localhost:5000/deleteles8" method="post">-->
 				  <label for="deletes">Rij om te verwijderen:</label>
 				  <input type="text" id="deletes" name="deletes">
