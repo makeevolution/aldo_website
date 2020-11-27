@@ -1,0 +1,83 @@
+{%extends "layout.html" %} {% block content %}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+		var i=0;
+		$.ajax({
+			//url: "http://localhost:5000/get_data/les8",
+			url: "get_data/les8"
+		}).done(function(data) {
+			data_parsed=jQuery.parseJSON(data);
+			//$("#test_ajax").html('<p>Test</p>').text();
+			data_parsed.forEach(function(dt){
+				var link_to_example="https://context.reverso.net/vertaling/nederlands-engels/"+ dt['question'];
+				//var link_to_hint = "http://localhost:5000/hint"+ dt['question']+"/les8"
+				var link_to_hint = "hint/" + dt['question']+"/les8"
+				$("#all_questions").append("<p>"+ dt['id'] +". " + dt['question'] + " " +
+										"<input id=\""+"question"+i+"\">" + "</input>" +
+										"<button  style=\""+"height:20px;width:20px"+"\" type=\""+"radio"+"\" id=\""+i+"\">" + "</button>" +
+						'<a href="' + link_to_example + '">'+'Voorbeeldgebruik'+'</a>'+ '<br>' + '</br>' + dt['hint'] +"<br>"+"</br>") ;
+				//$("#all_questions").append('<a href="' + link_to_example + '">Gebruik voorbeeld</a>');
+				// $("#all_questions").append(
+				// 						"<input id=\""+"question"+i+"\">" + "</input>" +
+				// 						"<button type=\""+"button"+"\" id=\""+i+"\">"
+				// 						);
+				//$("#all_questions").html('<p>Test</p>').text();
+				i++;
+				//console.log(dt['question']);
+			});
+			//$('#questiontests').html(jQuery.parseJSON(data)['0']["question"]).text();
+			//console.log(jQuery.parseJSON(data).length);
+		});
+  });
+</script>
+
+<script type="text/javascript">
+	$(document).on("click",'button',function() {
+		var x = document.getElementById("question"+this.id).value;
+		var current_id=this.id
+		$.ajax({
+			//url: "http://localhost:5000/get_data/les8",
+			url: "get_data/les8"
+		}).done(function(data) {
+			data_parsed=jQuery.parseJSON(data)
+			console.log(data_parsed[current_id]["answer"])
+			if (x==data_parsed[current_id]["answer"]){
+				sweetAlert(
+					{
+					title: "Juist!",
+					icon: "success"
+					})
+			} else {
+				sweetAlert({
+					title: "Ontjuist!",
+					icon: "warning",
+					text: "Uw response is " + x + " maar het antwoord is " + data_parsed[current_id]["answer"],
+					})
+			}
+			console.log("button click");
+		});
+	});
+</script>
+
+<section class="page-section" style="background-color:lightblue" id="about">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-8 text-center">
+				<h2 class="text-black-50 mt-0">Lezen oefening</h2>
+				<h5 class="text-black-50 mt-0 font-italic">
+					Lees de volgende teksten zo veel mogelijk zonder de vertaling.
+				</h5>
+				<p>
+					Het is zondagmiddag en ik zit in onze achtertuin. Iets verderop (beyond) staat de kerk waar mijn man predikant van is. Flarden van lofliederen (Fragments of praisesongs) en gezangen in het Farsi komen mijn kant op. In onze Londense kerk komt een levendige Iraanse gemeente samen, en we voelen ons klein worden als we zien hoe toegewijd (dedicated) aan Christus zij zijn, wanneer ze ons hun verhalen van vervolging (prosecution) toevertrouwen (entrust), zoals dat van de broer van hun voorganger die om zijn geloof de marteldood (martyred) gestorven is. Dit zijn trouwe gelovigen die in de voetstappen van de eerste christelijke martelaar, Stefanus, gaan.
+
+Stefanus was een van de eerste leiders van de vroege kerk die door de apostelen aangesteld waren. In Jeruzalem vestigde hij de aandacht op zich doordat hij ‘dankzij God genade en kracht grote wonderen en tekenen onder het volk verrichtte’ (Hand. 6:8). Hij werd voor de Joodse autoriteiten gebracht om zich te verantwoorden. Daar hield hij een vurig betoog waarmee hij zijn geloof verdedigde, waarna hij zijn aanklagers ervan beschuldigde dat ze halsstarrig en ongelovig waren. Niet dat dit hun tot berouw bracht, integendeel: ze ‘ontstaken in woede en begonnen te knarsetanden’ (7:54). Ze sleepten Stefanus de stad uit en doodden hem door steniging, terwijl hij ondertussen bad om vergeving voor hun daden.
+
+De verhalen van Stefanus en van hedendaagse martelaren zijn voor ons een herinnering aan het feit dat Jezus’ boodschap niet altijd in goede aarde valt. Soms is er heftig verzet tegen, dat op geweld kan uitlopen. Ook als wij zelf nooit vervolging om ons geloof gekend hebben, is het goed om te bidden voor de wereldwijde, vervolgde kerk. En we kunnen ervoor bidden dat wij, als we ooit zo beproefd worden, de genade ontvangen om trouw te zijn aan Hem die zo veel meer voor ons geleden heeft.
+				</p>
+			</div>
+		</div>
+	</div>
+
+</section> {% endblock %}
