@@ -21,7 +21,8 @@ app.config['SQLALCHEMY_BINDS']={'les6':'sqlite:///les6.db',
                                 'vertaling':'sqlite:///vertaling.db',
                                 'diedatwat':'sqlite:///diedatwat.db',
                                 'onregelmatig_verba':'sqlite:///onregelmatig_verba.db',
-                                'separabelverba':'sqlite:///separabelverba.db'
+                                'separabelverba':'sqlite:///separabelverba.db',
+                                'ER_VRAGEN':'sqlite:///ER_VRAGEN.db'
                                 }
 #https://www.youtube.com/watch?v=SB5BfYYpXjE
 #Create database instance for dutch learning
@@ -96,6 +97,16 @@ class zich(db.Model):
     def __repr__(self):  # Redefine what print(object) is
         return '{} {}'.format(self.question, self.answer)
 
+class les6(db.Model):
+    __bind_key__='les6'
+    id = db.Column(db.Integer, primary_key=True)
+    question = db.Column(db.String(200), unique=True)
+    answer = db.Column(db.String(200), unique=False)
+    hint = db.Column(db.String(2000), unique=False)
+
+    def __repr__(self):  # Redefine what print(object) is
+        return '{} {}'.format(self.question, self.answer)
+
 class vertaling(db.Model):
     __bind_key__ = 'vertaling'
     id = db.Column(db.Integer, primary_key=True)
@@ -108,8 +119,8 @@ class vertaling(db.Model):
 def gatenteksttest():
     return render_template("dutch_testgatentekst_oefenen.html")
 
-class les6(db.Model):
-    __bind_key__='les6'
+class ER_VRAGEN(db.Model):
+    __bind_key__='ER_VRAGEN'
     id = db.Column(db.Integer, primary_key=True)
     question = db.Column(db.String(200), unique=True)
     answer = db.Column(db.String(200), unique=False)
